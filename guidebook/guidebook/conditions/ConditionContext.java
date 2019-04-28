@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.conditions;
+package com.lireherz.guidebook.guidebook.conditions;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 

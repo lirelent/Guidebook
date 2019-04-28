@@ -1,8 +1,8 @@
-package lirelent_gigaherz.guidebook.guidebook.templates;
+package com.lireherz.guidebook.guidebook.templates;
 
 import com.google.common.collect.Lists;
-import lirelent_gigaherz.guidebook.guidebook.IConditionSource;
-import lirelent_gigaherz.guidebook.guidebook.elements.Element;
+import com.lireherz.guidebook.guidebook.IConditionSource;
+import com.lireherz.guidebook.guidebook.elements.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import java.util.List;

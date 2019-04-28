@@ -1,11 +1,11 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.IConditionSource;
-import lirelent_gigaherz.guidebook.guidebook.conditions.ConditionContext;
-import lirelent_gigaherz.guidebook.guidebook.util.Point;
-import lirelent_gigaherz.guidebook.guidebook.util.Rect;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.IConditionSource;
+import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
+import com.lireherz.guidebook.guidebook.util.Point;
+import com.lireherz.guidebook.guidebook.util.Rect;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import net.minecraft.util.ResourceLocation;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

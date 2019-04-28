@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
 import net.minecraftforge.client.resource.IResourceType;
 

@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
 @FunctionalInterface
 public interface ElementFactory

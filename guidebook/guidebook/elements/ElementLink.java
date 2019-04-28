@@ -1,10 +1,10 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.IConditionSource;
-import lirelent_gigaherz.guidebook.guidebook.SectionRef;
-import lirelent_gigaherz.guidebook.guidebook.util.LinkHelper;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.IConditionSource;
+import com.lireherz.guidebook.guidebook.SectionRef;
+import com.lireherz.guidebook.guidebook.util.LinkHelper;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

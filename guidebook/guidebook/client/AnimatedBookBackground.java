@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
 import gigaherz.common.client.ModelHandle;
-import lirelent_gigaherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.GuidebookMod;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

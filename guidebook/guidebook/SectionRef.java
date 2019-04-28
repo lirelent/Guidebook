@@ -1,8 +1,8 @@
-package lirelent_gigaherz.guidebook.guidebook;
+package com.lireherz.guidebook.guidebook;
 
 import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
-import lirelent_gigaherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.GuidebookMod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

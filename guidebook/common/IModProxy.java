@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.common;
+package com.lireherz.guidebook.common;
 
 import net.minecraft.util.ResourceLocation;
 

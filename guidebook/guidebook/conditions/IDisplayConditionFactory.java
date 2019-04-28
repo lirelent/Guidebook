@@ -1,6 +1,6 @@
-package lirelent_gigaherz.guidebook.guidebook.conditions;
+package com.lireherz.guidebook.guidebook.conditions;
 
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.BookDocument;
 import org.w3c.dom.Node;
 
 import java.util.function.Predicate;

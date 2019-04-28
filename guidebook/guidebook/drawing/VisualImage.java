@@ -1,9 +1,9 @@
-package lirelent_gigaherz.guidebook.guidebook.drawing;
+package com.lireherz.guidebook.guidebook.drawing;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.elements.LinkContext;
-import lirelent_gigaherz.guidebook.guidebook.util.LinkHelper;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.elements.LinkContext;
+import com.lireherz.guidebook.guidebook.util.LinkHelper;
+import com.lireherz.guidebook.guidebook.util.Size;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;

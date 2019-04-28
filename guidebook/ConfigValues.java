@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook;
+package com.lireherz.guidebook;
 
 import com.google.common.collect.Lists;
 import net.minecraftforge.common.config.Config;

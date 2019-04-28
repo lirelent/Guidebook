@@ -1,14 +1,14 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import lirelent_gigaherz.guidebook.ConfigValues;
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.SectionRef;
-import lirelent_gigaherz.guidebook.guidebook.drawing.*;
-import lirelent_gigaherz.guidebook.guidebook.util.PointD;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.ConfigValues;
+import com.lireherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.SectionRef;
+import com.lireherz.guidebook.guidebook.drawing.*;
+import com.lireherz.guidebook.guidebook.util.PointD;
+import com.lireherz.guidebook.guidebook.util.Size;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

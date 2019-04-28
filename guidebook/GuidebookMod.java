@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook;
+package com.lireherz.guidebook;
 
-import lirelent_gigaherz.guidebook.common.IModProxy;
-import lirelent_gigaherz.guidebook.guidebook.ItemGuidebook;
+import com.lireherz.guidebook.common.IModProxy;
+import com.lireherz.guidebook.guidebook.ItemGuidebook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +32,7 @@ public class GuidebookMod
     public static GuidebookMod instance;
 
     // Says where the client and server 'proxy' code is loaded.
-    @SidedProxy(clientSide = "lirelent_gigaherz.guidebook.client.ClientProxy", serverSide = "lirelent_gigaherz.guidebook.server.ServerProxy")
+    @SidedProxy(clientSide = "com.lireherz.guidebook.client.ClientProxy", serverSide = "com.lireherz.guidebook.server.ServerProxy")
     public static IModProxy proxy;
 
     // Items

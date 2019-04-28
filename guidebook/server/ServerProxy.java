@@ -1,6 +1,6 @@
-package lirelent_gigaherz.guidebook.server;
+package com.lireherz.guidebook.server;
 
-import lirelent_gigaherz.guidebook.common.IModProxy;
+import com.lireherz.guidebook.common.IModProxy;
 
 public class ServerProxy implements IModProxy
 {

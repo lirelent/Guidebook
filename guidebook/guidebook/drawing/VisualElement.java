@@ -1,9 +1,9 @@
-package lirelent_gigaherz.guidebook.guidebook.drawing;
+package com.lireherz.guidebook.guidebook.drawing;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.client.BookRendering;
-import lirelent_gigaherz.guidebook.guidebook.util.Rect;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.client.BookRendering;
+import com.lireherz.guidebook.guidebook.util.Rect;
+import com.lireherz.guidebook.guidebook.util.Size;
 import net.minecraft.client.gui.Gui;
 
 public abstract class VisualElement extends Rect

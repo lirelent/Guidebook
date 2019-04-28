@@ -1,11 +1,11 @@
-package lirelent_gigaherz.guidebook.guidebook.templates;
+package com.lireherz.guidebook.guidebook.templates;
 
 import com.google.common.collect.Maps;
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
-import lirelent_gigaherz.guidebook.guidebook.IConditionSource;
-import lirelent_gigaherz.guidebook.guidebook.client.BookRegistry;
-import lirelent_gigaherz.guidebook.guidebook.conditions.ConditionContext;
-import lirelent_gigaherz.guidebook.guidebook.elements.TextStyle;
+import com.lireherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.IConditionSource;
+import com.lireherz.guidebook.guidebook.client.BookRegistry;
+import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
+import com.lireherz.guidebook.guidebook.elements.TextStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;

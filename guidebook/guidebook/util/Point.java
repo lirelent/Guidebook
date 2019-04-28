@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.util;
+package com.lireherz.guidebook.guidebook.util;
 
 public class Point
 {

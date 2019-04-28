@@ -1,6 +1,6 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
-import lirelent_gigaherz.guidebook.guidebook.SectionRef;
+import com.lireherz.guidebook.guidebook.SectionRef;
 
 public class LinkContext
 {

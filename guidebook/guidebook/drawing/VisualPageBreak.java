@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook.drawing;
+package com.lireherz.guidebook.guidebook.drawing;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.util.Size;
 
 public class VisualPageBreak extends VisualElement
 {

@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook.conditions;
+package com.lireherz.guidebook.guidebook.conditions;
 
 import com.google.common.base.Strings;
-import lirelent_gigaherz.guidebook.guidebook.BookParsingException;
+import com.lireherz.guidebook.guidebook.BookParsingException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;

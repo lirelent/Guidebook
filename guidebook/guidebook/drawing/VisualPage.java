@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook.drawing;
+package com.lireherz.guidebook.guidebook.drawing;
 
 import com.google.common.collect.Lists;
-import lirelent_gigaherz.guidebook.guidebook.SectionRef;
+import com.lireherz.guidebook.guidebook.SectionRef;
 
 import java.util.List;
 

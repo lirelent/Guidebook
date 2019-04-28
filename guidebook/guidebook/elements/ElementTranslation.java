@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
 import net.minecraft.client.resources.I18n;
 

@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.drawing;
+package com.lireherz.guidebook.guidebook.drawing;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

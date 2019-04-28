@@ -1,11 +1,11 @@
-package lirelent_gigaherz.guidebook.guidebook.recipe;
+package com.lireherz.guidebook.guidebook.recipe;
 
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
-import lirelent_gigaherz.guidebook.guidebook.elements.ElementImage;
-import lirelent_gigaherz.guidebook.guidebook.elements.ElementStack;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.elements.ElementImage;
+import com.lireherz.guidebook.guidebook.elements.ElementStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;

@@ -1,16 +1,16 @@
-package lirelent_gigaherz.guidebook.client;
+package com.lireherz.guidebook.client;
 
 import gigaherz.common.client.ModelHandle;
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.common.IModProxy;
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
-import lirelent_gigaherz.guidebook.guidebook.client.BookBakedModel;
-import lirelent_gigaherz.guidebook.guidebook.client.BookRegistry;
-import lirelent_gigaherz.guidebook.guidebook.client.GuiGuidebook;
-import lirelent_gigaherz.guidebook.guidebook.conditions.AdvancementCondition;
-import lirelent_gigaherz.guidebook.guidebook.conditions.BasicConditions;
-import lirelent_gigaherz.guidebook.guidebook.conditions.CompositeCondition;
-import lirelent_gigaherz.guidebook.guidebook.conditions.GameStageCondition;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.common.IModProxy;
+import com.lireherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.client.BookBakedModel;
+import com.lireherz.guidebook.guidebook.client.BookRegistry;
+import com.lireherz.guidebook.guidebook.client.GuiGuidebook;
+import com.lireherz.guidebook.guidebook.conditions.AdvancementCondition;
+import com.lireherz.guidebook.guidebook.conditions.BasicConditions;
+import com.lireherz.guidebook.guidebook.conditions.CompositeCondition;
+import com.lireherz.guidebook.guidebook.conditions.GameStageCondition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

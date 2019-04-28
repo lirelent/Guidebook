@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook;
+package com.lireherz.guidebook.guidebook;
 
 import com.google.common.base.Strings;
-import lirelent_gigaherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.GuidebookMod;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

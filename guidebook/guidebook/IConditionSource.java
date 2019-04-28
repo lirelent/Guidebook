@@ -1,6 +1,6 @@
-package lirelent_gigaherz.guidebook.guidebook;
+package com.lireherz.guidebook.guidebook;
 
-import lirelent_gigaherz.guidebook.guidebook.conditions.ConditionContext;
+import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
 
 import java.util.function.Predicate;
 

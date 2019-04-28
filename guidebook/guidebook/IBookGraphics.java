@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.guidebook;
+package com.lireherz.guidebook.guidebook;
 
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 

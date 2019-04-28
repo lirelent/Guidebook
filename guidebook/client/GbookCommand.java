@@ -1,7 +1,7 @@
-package lirelent_gigaherz.guidebook.client;
+package com.lireherz.guidebook.client;
 
-import lirelent_gigaherz.guidebook.guidebook.client.BookRegistry;
-import lirelent_gigaherz.guidebook.guidebook.client.BookResourceType;
+import com.lireherz.guidebook.guidebook.client.BookRegistry;
+import com.lireherz.guidebook.guidebook.client.BookResourceType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

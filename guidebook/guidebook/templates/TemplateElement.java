@@ -1,12 +1,12 @@
-package lirelent_gigaherz.guidebook.guidebook.templates;
+package com.lireherz.guidebook.guidebook.templates;
 
 import com.google.common.primitives.Ints;
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.IConditionSource;
-import lirelent_gigaherz.guidebook.guidebook.util.Rect;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
-import lirelent_gigaherz.guidebook.guidebook.elements.Element;
-import lirelent_gigaherz.guidebook.guidebook.elements.ElementInline;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.IConditionSource;
+import com.lireherz.guidebook.guidebook.util.Rect;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.elements.Element;
+import com.lireherz.guidebook.guidebook.elements.ElementInline;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

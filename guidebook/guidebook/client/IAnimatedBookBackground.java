@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
 public interface IAnimatedBookBackground
 {

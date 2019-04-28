@@ -1,13 +1,13 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
-import lirelent_gigaherz.guidebook.guidebook.templates.TemplateLibrary;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.templates.TemplateLibrary;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.*;
 import net.minecraft.item.ItemStack;

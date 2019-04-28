@@ -1,4 +1,4 @@
-package lirelent_gigaherz.guidebook.guidebook;
+package com.lireherz.guidebook.guidebook;
 
 public class BookParsingException extends RuntimeException
 {

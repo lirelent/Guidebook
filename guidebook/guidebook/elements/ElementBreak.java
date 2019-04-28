@@ -1,10 +1,10 @@
-package lirelent_gigaherz.guidebook.guidebook.elements;
+package com.lireherz.guidebook.guidebook.elements;
 
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.util.Rect;
-import lirelent_gigaherz.guidebook.guidebook.util.Size;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualPageBreak;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.util.Rect;
+import com.lireherz.guidebook.guidebook.util.Size;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.drawing.VisualPageBreak;
 
 import java.util.List;
 

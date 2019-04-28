@@ -1,9 +1,9 @@
-package lirelent_gigaherz.guidebook.guidebook.client;
+package com.lireherz.guidebook.guidebook.client;
 
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.guidebook.BookDocument;
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.conditions.ConditionContext;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.guidebook.BookDocument;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
 import jdk.nashorn.internal.ir.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

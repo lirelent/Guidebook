@@ -1,10 +1,10 @@
-package lirelent_gigaherz.guidebook.guidebook.recipe;
+package com.lireherz.guidebook.guidebook.recipe;
 
 import com.google.common.collect.Maps;
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.guidebook.drawing.VisualElement;
-import lirelent_gigaherz.guidebook.guidebook.elements.ElementImage;
-import lirelent_gigaherz.guidebook.guidebook.elements.ElementStack;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.elements.ElementImage;
+import com.lireherz.guidebook.guidebook.elements.ElementStack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
-package lirelent_gigaherz.guidebook.client;
+package com.lireherz.guidebook.client;
 
-import lirelent_gigaherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.GuidebookMod;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.eventhandler.Event;
 

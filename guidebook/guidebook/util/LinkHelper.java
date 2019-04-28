@@ -1,9 +1,9 @@
-package lirelent_gigaherz.guidebook.guidebook.util;
+package com.lireherz.guidebook.guidebook.util;
 
 import com.google.common.collect.Sets;
-import lirelent_gigaherz.guidebook.GuidebookMod;
-import lirelent_gigaherz.guidebook.guidebook.IBookGraphics;
-import lirelent_gigaherz.guidebook.guidebook.elements.LinkContext;
+import com.lireherz.guidebook.GuidebookMod;
+import com.lireherz.guidebook.guidebook.IBookGraphics;
+import com.lireherz.guidebook.guidebook.elements.LinkContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
