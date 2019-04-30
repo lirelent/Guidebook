@@ -1,67 +1,66 @@
 package com.lireherz.guidebook.guidebook;
 
-import com.lireherz.guidebook.guidebook.util.Size;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
+import com.lireherz.guidebook.guidebook.util.Size;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public interface IBookGraphics
-{
-    boolean refreshScalingFactor();
+public interface IBookGraphics {
+	boolean refreshScalingFactor ();
 
-    double getScalingFactor();
+	double getScalingFactor ();
 
-    boolean canGoBack();
+	boolean canGoBack ();
 
-    boolean canGoNextPage();
+	boolean canGoNextPage ();
 
-    boolean canGoPrevPage();
+	boolean canGoPrevPage ();
 
-    boolean canGoNextChapter();
+	boolean canGoNextChapter ();
 
-    boolean canGoPrevChapter();
+	boolean canGoPrevChapter ();
 
-    void navigateTo(SectionRef target);
+	void navigateTo (SectionRef target);
 
-    void nextPage();
+	void nextPage ();
 
-    void prevPage();
+	void prevPage ();
 
-    void nextChapter();
+	void nextChapter ();
 
-    void prevChapter();
+	void prevChapter ();
 
-    void navigateHome();
+	void navigateHome ();
 
-    void navigateBack();
+	void navigateBack ();
 
-    int addString(int left, int top, String s, int color, float scale);
+	int addString (int left, int top, String s, int color, float scale);
 
-    boolean mouseClicked(int mouseButton);
+	boolean mouseClicked (int mouseButton);
 
-    boolean mouseHover(int mouseX, int mouseY);
+	boolean mouseHover (int mouseX, int mouseY);
 
-    void drawCurrentPages();
+	void drawCurrentPages ();
 
-    BookDocument getBook();
+	BookDocument getBook ();
 
-    void drawItemStack(int left, int top, int z, ItemStack stack, int color, float scale);
+	void drawItemStack (int left, int top, int z, ItemStack stack, int color, float scale);
 
-    void drawImage(ResourceLocation loc, int x, int y, int tx, int ty, int w, int h, int tw, int th, float scale);
+	void drawImage (ResourceLocation loc, int x, int y, int tx, int ty, int w, int h, int tw, int th, float scale);
 
-    void drawTooltip(ItemStack stack, int x, int y);
+	void drawTooltip (ItemStack stack, int x, int y);
 
-    Object owner();
+	Object owner ();
 
-    Size measure(String text);
+	Size measure (String text);
 
-    List<VisualElement> measure(String text, int width, int firstLineWidth, float scale, int position, float baseline, int verticalAlignment);
+	List<VisualElement> measure (String text, int width, int firstLineWidth, float scale, int position, float baseline, int verticalAlignment);
 
-    int getActualBookHeight();
+	int getActualBookHeight ();
 
-    int getActualBookWidth();
+	int getActualBookWidth ();
 
-    void resetRendering(boolean contentsChanged);
+	void resetRendering (boolean contentsChanged);
 }

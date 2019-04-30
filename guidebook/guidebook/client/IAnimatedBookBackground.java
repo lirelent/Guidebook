@@ -1,12 +1,11 @@
 package com.lireherz.guidebook.guidebook.client;
 
-public interface IAnimatedBookBackground
-{
-    void startClosing();
+public interface IAnimatedBookBackground {
+	void startClosing ();
 
-    boolean isFullyOpen();
+	boolean isFullyOpen ();
 
-    boolean update();
+	boolean update ();
 
-    void draw(float partialTicks, int bookHeight, float backgroundScale);
+	void draw (float partialTicks, int bookHeight, float backgroundScale);
 }

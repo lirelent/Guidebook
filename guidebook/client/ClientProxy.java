@@ -1,6 +1,5 @@
 package com.lireherz.guidebook.client;
 
-import gigaherz.common.client.ModelHandle;
 import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.common.IModProxy;
 import com.lireherz.guidebook.guidebook.BookDocument;
@@ -11,13 +10,12 @@ import com.lireherz.guidebook.guidebook.conditions.AdvancementCondition;
 import com.lireherz.guidebook.guidebook.conditions.BasicConditions;
 import com.lireherz.guidebook.guidebook.conditions.CompositeCondition;
 import com.lireherz.guidebook.guidebook.conditions.GameStageCondition;
+import gigaherz.common.client.ModelHandle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -31,98 +29,53 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Collection;
 
-import static gigaherz.common.client.ModelHelpers.registerItemModel;
-
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = GuidebookMod.MODID)
-public class ClientProxy implements IModProxy
-{
-    public ClientProxy()
-    {
-        BookRegistry.injectCustomResourcePack();
-    }
+public class ClientProxy implements IModProxy {
+	public ClientProxy () {
+		BookRegistry.injectCustomResourcePack();
+	}
 
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event)
-    {
-        OBJLoader.INSTANCE.addDomain(GuidebookMod.MODID);
-        ModelLoaderRegistry.registerLoader(new BookBakedModel.ModelLoader());
+	@Override
+	public void preInit () {
+		ModelHandle.init();
 
-        //registerItemModel(GuidebookMod.guidebook);
+		BasicConditions.register();
+		CompositeCondition.register();
+		AdvancementCondition.register();
 
-        ModelLoader.setCustomMeshDefinition(GuidebookMod.guidebook, new ItemMeshDefinition()
-        {
-            final ModelResourceLocation defaultModel = new ModelResourceLocation(GuidebookMod.guidebook.getRegistryName(), "inventory");
+		MinecraftForge.EVENT_BUS.post(new BookRegistryEvent());
 
-            {
-                ModelLoader.registerItemVariants(GuidebookMod.guidebook, defaultModel);
-            }
+		ClientCommandHandler.instance.registerCommand(new GbookCommand());
+	}
 
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack)
-            {
-                BookDocument book = BookRegistry.get(stack);
+	@Override
+	public void registerBook (ResourceLocation bookLocation) {
+		BookRegistry.registerBook(bookLocation);
+	}
 
-                ModelResourceLocation mrl = book == null ? null : book.getModel();
+	@Override
+	public Collection<ResourceLocation> getBooksList () {
+		return BookRegistry.getLoadedBooks().keySet();
+	}
 
-                return mrl != null ? mrl : defaultModel;
-            }
-        });
+	@Override
+	public void displayBook (String book) {
+		ResourceLocation loc = new ResourceLocation(book);
+		BookDocument br = BookRegistry.get(loc);
+		if (br != null && br.chapterCount() > 0) {
+			Minecraft.getMinecraft().displayGuiScreen(new GuiGuidebook(loc));
+		}
+	}
 
-        ModelLoader.registerItemVariants(GuidebookMod.guidebook, BookRegistry.gatherBookModels());
-    }
-
-    /*@SubscribeEvent
-    public static void colors(ColorHandlerEvent.Item event)
-    {
-    }*/
-
-    @Override
-    public void preInit()
-    {
-        ModelHandle.init();
-
-        BasicConditions.register();
-        CompositeCondition.register();
-        AdvancementCondition.register();
-
-        if (Loader.isModLoaded("gamestages"))
-            GameStageCondition.register();
-        MinecraftForge.EVENT_BUS.post(new BookRegistryEvent());
-
-        ClientCommandHandler.instance.registerCommand(new GbookCommand());
-    }
-
-    @Override
-    public void registerBook(ResourceLocation bookLocation)
-    {
-        BookRegistry.registerBook(bookLocation);
-    }
-
-    @Override
-    public Collection<ResourceLocation> getBooksList()
-    {
-        return BookRegistry.getLoadedBooks().keySet();
-    }
-
-    @Override
-    public void displayBook(String book)
-    {
-        ResourceLocation loc = new ResourceLocation(book);
-        BookDocument br = BookRegistry.get(loc);
-        if (br != null && br.chapterCount() > 0)
-            Minecraft.getMinecraft().displayGuiScreen(new GuiGuidebook(loc));
-    }
-
-    @Override
-    public String getBookName(String book)
-    {
-        BookDocument bookDocument = BookRegistry.get(new ResourceLocation(book));
-        if (bookDocument != null)
-        {
-            String name = bookDocument.getName();
-            if (name != null)
-                return name;
-        }
-        return String.format("Guidebook - %s unknown", book);
-    }
+	@Override
+	public String getBookName (String book) {
+		BookDocument bookDocument = BookRegistry.get(new ResourceLocation(book));
+		if (bookDocument != null) {
+			String name = bookDocument.getName();
+			if (name != null) {
+				return name;
+			}
+		}
+		return String.format("Guidebook - %s unknown", book);
+	}
 }

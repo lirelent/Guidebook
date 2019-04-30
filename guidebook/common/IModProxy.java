@@ -5,32 +5,26 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Collection;
 import java.util.Collections;
 
-public interface IModProxy
-{
+public interface IModProxy {
 
-    default void displayBook(String book)
-    {
+	default void displayBook (String book) {
 
-    }
+	}
 
-    default void preInit()
-    {
+	default void preInit () {
 
-    }
+	}
 
-    default String getBookName(String book)
-    {
-        return String.format("Guidebook - %s unknown", book);
-    }
+	default String getBookName (String book) {
+		return String.format("Guidebook - %s unknown", book);
+	}
 
-    // The book registry is only available in the client.
-    default Collection<ResourceLocation> getBooksList()
-    {
-        return Collections.emptyList();
-    }
+	// The book registry is only available in the client.
+	default Collection<ResourceLocation> getBooksList () {
+		return Collections.emptyList();
+	}
 
-    // The book registry is only available in the client.
-    default void registerBook(ResourceLocation bookLocation)
-    {
-    }
+	// The book registry is only available in the client.
+	default void registerBook (ResourceLocation bookLocation) {
+	}
 }

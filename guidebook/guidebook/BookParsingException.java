@@ -1,14 +1,11 @@
 package com.lireherz.guidebook.guidebook;
 
-public class BookParsingException extends RuntimeException
-{
-    public BookParsingException(String message)
-    {
-        super(message);
-    }
+public class BookParsingException extends RuntimeException {
+	public BookParsingException (String message) {
+		super(message);
+	}
 
-    public BookParsingException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+	public BookParsingException (String message, Throwable cause) {
+		super(message, cause);
+	}
 }

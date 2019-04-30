@@ -4,7 +4,6 @@ import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
 
 import java.util.function.Predicate;
 
-public interface IConditionSource
-{
-    Predicate<ConditionContext> getCondition(String name);
+public interface IConditionSource {
+	Predicate<ConditionContext> getCondition (String name);
 }

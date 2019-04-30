@@ -4,10 +4,10 @@ import com.google.common.primitives.Ints;
 import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.IBookGraphics;
 import com.lireherz.guidebook.guidebook.IConditionSource;
-import com.lireherz.guidebook.guidebook.util.Rect;
-import com.lireherz.guidebook.guidebook.util.Size;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import com.lireherz.guidebook.guidebook.drawing.VisualStack;
+import com.lireherz.guidebook.guidebook.util.Rect;
+import com.lireherz.guidebook.guidebook.util.Size;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,188 +23,160 @@ import org.w3c.dom.Node;
 import java.util.Collections;
 import java.util.List;
 
-public class ElementStack extends ElementInline
-{
-    public static final String WILDCARD = "*";
+public class ElementStack extends ElementInline {
+	public static final String WILDCARD = "*";
 
-    public final NonNullList<ItemStack> stacks = NonNullList.create();
+	public final NonNullList<ItemStack> stacks = NonNullList.create();
 
-    public float scale = 1.0f;
+	public float scale = 1.0f;
 
-    public ElementStack(boolean isFirstElement, boolean isLastElement)
-    {
-        super(isFirstElement, isLastElement);
-        // default size
-        w = 16;
-        h = 16;
-    }
+	public ElementStack (boolean isFirstElement, boolean isLastElement) {
+		super(isFirstElement, isLastElement);
+		// default size
+		w = 16;
+		h = 16;
+	}
 
-    private Size getVisualSize()
-    {
-        int width = (int) (w * scale);
-        int height = (int) (h * scale);
-        return new Size(width, height);
-    }
+	private Size getVisualSize () {
+		int width = (int) (w * scale);
+		int height = (int) (h * scale);
+		return new Size(width, height);
+	}
 
-    private VisualStack getVisual()
-    {
-        return new VisualStack(stacks, getVisualSize(), position, baseline, verticalAlignment, scale, z);
-    }
+	private VisualStack getVisual () {
+		return new VisualStack(stacks, getVisualSize(), position, baseline, verticalAlignment, scale, z);
+	}
 
-    @Override
-    public List<VisualElement> measure(IBookGraphics nav, int width, int firstLineWidth)
-    {
-        return Collections.singletonList(getVisual());
-    }
+	@Override
+	public List<VisualElement> measure (IBookGraphics nav, int width, int firstLineWidth) {
+		return Collections.singletonList(getVisual());
+	}
 
-    @Override
-    public int reflow(List<VisualElement> paragraph, IBookGraphics nav, Rect bounds, Rect page)
-    {
-        VisualStack element = getVisual();
-        element.position = applyPosition(bounds.position, bounds.position);
-        paragraph.add(element);
-        if (position != POS_RELATIVE)
-            return bounds.position.y;
-        return bounds.position.y + element.size.height;
-    }
+	@Override
+	public int reflow (List<VisualElement> paragraph, IBookGraphics nav, Rect bounds, Rect page) {
+		VisualStack element = getVisual();
+		element.position = applyPosition(bounds.position, bounds.position);
+		paragraph.add(element);
+		if (position != POS_RELATIVE) {
+			return bounds.position.y;
+		}
+		return bounds.position.y + element.size.height;
+	}
 
-    @Override
-    public void parse(IConditionSource book, NamedNodeMap attributes)
-    {
-        int meta = 0;
-        int stackSize = 1;
-        NBTTagCompound tag = new NBTTagCompound();
+	@Override
+	public void parse (IConditionSource book, NamedNodeMap attributes) {
+		int meta = 0;
+		int stackSize = 1;
+		NBTTagCompound tag = new NBTTagCompound();
 
-        super.parse(book, attributes);
+		super.parse(book, attributes);
 
-        scale = getAttribute(attributes, "scale", scale);
+		scale = getAttribute(attributes, "scale", scale);
 
-        Node attr = attributes.getNamedItem("meta");
-        if (attr != null)
-        {
-            if (attr.getTextContent().equals(WILDCARD))
-                meta = -1;
-            else
-                meta = Ints.tryParse(attr.getTextContent());
-        }
+		Node attr = attributes.getNamedItem("meta");
+		if (attr != null) {
+			if (attr.getTextContent().equals(WILDCARD)) {
+				meta = -1;
+			} else {
+				meta = Ints.tryParse(attr.getTextContent());
+			}
+		}
 
-        attr = attributes.getNamedItem("count");
-        if (attr != null)
-        {
-            stackSize = Ints.tryParse(attr.getTextContent());
-        }
+		attr = attributes.getNamedItem("count");
+		if (attr != null) {
+			stackSize = Ints.tryParse(attr.getTextContent());
+		}
 
-        attr = attributes.getNamedItem("tag");
-        if (attr != null)
-        {
-            try
-            {
-                tag = JsonToNBT.getTagFromJson(attr.getTextContent());
-            }
-            catch (NBTException e)
-            {
-                GuidebookMod.logger.warn("Invalid tag format: " + e.getMessage());
-            }
-        }
+		attr = attributes.getNamedItem("tag");
+		if (attr != null) {
+			try {
+				tag = JsonToNBT.getTagFromJson(attr.getTextContent());
+			} catch (NBTException e) {
+				GuidebookMod.logger.warn("Invalid tag format: " + e.getMessage());
+			}
+		}
 
-        attr = attributes.getNamedItem("item");
-        if (attr != null)
-        {
-            String itemName = attr.getTextContent();
+		attr = attributes.getNamedItem("item");
+		if (attr != null) {
+			String itemName = attr.getTextContent();
 
-            Item item = Item.REGISTRY.getObject(new ResourceLocation(itemName));
+			Item item = Item.REGISTRY.getObject(new ResourceLocation(itemName));
 
-            if (item != null)
-            {
-                if (((meta == OreDictionary.WILDCARD_VALUE) || meta == -1) && item.getHasSubtypes())
-                {
-                    item.getSubItems(CreativeTabs.SEARCH, stacks);
+			if (item != null) {
+				if (((meta == OreDictionary.WILDCARD_VALUE) || meta == -1) && item.getHasSubtypes()) {
+					item.getSubItems(CreativeTabs.SEARCH, stacks);
 
-                    for (int i = 0; i < stacks.size(); i++)
-                    {
-                        ItemStack subitem = stacks.get(i);
+					for (int i = 0; i < stacks.size(); i++) {
+						ItemStack subitem = stacks.get(i);
 
-                        subitem = subitem.copy();
+						subitem = subitem.copy();
 
-                        subitem.setCount(stackSize);
-                        subitem.setTagCompound(tag);
+						subitem.setCount(stackSize);
+						subitem.setTagCompound(tag);
 
-                        stacks.set(i, subitem);
-                    }
-                }
-                else
-                {
-                    ItemStack stack = new ItemStack(item, stackSize, meta);
-                    stack.setTagCompound(tag);
-                    stacks.add(stack);
-                }
-            }
-        }
+						stacks.set(i, subitem);
+					}
+				} else {
+					ItemStack stack = new ItemStack(item, stackSize, meta);
+					stack.setTagCompound(tag);
+					stacks.add(stack);
+				}
+			}
+		}
 
-        //get stacks from ore dictionary
-        attr = attributes.getNamedItem("ore");
-        if (attr != null)
-        {
-            String oreName = attr.getTextContent();
-            //list of matching item stack; may contain wildcard meta data
-            NonNullList<ItemStack> items = OreDictionary.getOres(oreName);
+		//get stacks from ore dictionary
+		attr = attributes.getNamedItem("ore");
+		if (attr != null) {
+			String oreName = attr.getTextContent();
+			//list of matching item stack; may contain wildcard meta data
+			NonNullList<ItemStack> items = OreDictionary.getOres(oreName);
 
-            if (items.size() != 0)
-            {
-                //foreach item: try to resolve wildcard meta data
-                for (ItemStack item : items)
-                {
-                    //make sure not to mess up ore dictionary item stacks
-                    item = item.copy();
-                    meta = item.getMetadata();
+			if (items.size() != 0) {
+				//foreach item: try to resolve wildcard meta data
+				for (ItemStack item : items) {
+					//make sure not to mess up ore dictionary item stacks
+					item = item.copy();
+					meta = item.getMetadata();
 
-                    if (meta == OreDictionary.WILDCARD_VALUE && item.getHasSubtypes())
-                    {
-                        //replace wildcard metas with subitems
-                        NonNullList<ItemStack> subitems = NonNullList.create();
-                        item.getItem().getSubItems(CreativeTabs.SEARCH, subitems);
-                        for (ItemStack subitem : subitems)
-                        {
-                            //just in case the ItemStack instance is not just a copy or a new instance
-                            subitem = subitem.copy();
+					if (meta == OreDictionary.WILDCARD_VALUE && item.getHasSubtypes()) {
+						//replace wildcard metas with subitems
+						NonNullList<ItemStack> subitems = NonNullList.create();
+						item.getItem().getSubItems(CreativeTabs.SEARCH, subitems);
+						for (ItemStack subitem : subitems) {
+							//just in case the ItemStack instance is not just a copy or a new instance
+							subitem = subitem.copy();
 
-                            subitem.setCount(stackSize);
-                            subitem.setTagCompound(tag);
-                            stacks.add(subitem);
-                        }
-                    }
-                    else
-                    {
-                        item.setCount(stackSize);
-                        stacks.add(item);
-                    }
-                }
-            }
-        }
-    }
+							subitem.setCount(stackSize);
+							subitem.setTagCompound(tag);
+							stacks.add(subitem);
+						}
+					} else {
+						item.setCount(stackSize);
+						stacks.add(item);
+					}
+				}
+			}
+		}
+	}
 
-    @Override
-    public String toString(boolean complete)
-    {
-        // TODO
-        return "<stack .../>";
-    }
+	@Override
+	public String toString (boolean complete) {
+		// TODO
+		return "<stack .../>";
+	}
 
-    @Override
-    public ElementInline copy()
-    {
-        ElementStack newStack = super.copy(new ElementStack(isFirstElement, isLastElement));
-        newStack.scale = scale;
-        for(ItemStack stack : stacks)
-        {
-            newStack.stacks.add(stack.copy());
-        }
-        return newStack;
-    }
+	@Override
+	public ElementInline copy () {
+		ElementStack newStack = super.copy(new ElementStack(isFirstElement, isLastElement));
+		newStack.scale = scale;
+		for (ItemStack stack : stacks) {
+			newStack.stacks.add(stack.copy());
+		}
+		return newStack;
+	}
 
-    @Override
-    public boolean supportsPageLevel()
-    {
-        return true;
-    }
+	@Override
+	public boolean supportsPageLevel () {
+		return true;
+	}
 }

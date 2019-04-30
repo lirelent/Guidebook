@@ -22,74 +22,17 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = GuidebookMod.MODID, version = GuidebookMod.VERSION,
         acceptedMinecraftVersions = "[1.12.0,1.13.0)",
         updateJSON = "https://raw.githubusercontent.com/gigaherz/guidebook/master/update.json")*/
-public class GuidebookMod
-{
-    public static final String MODID = "gbook";
-    public static final String VERSION = "@VERSION@";
+public class GuidebookMod {
+	public static final String MODID = "gbook";
+	public static final String VERSION = "@VERSION@";
 
-    // The instance of your mod that Forge uses.
-    @Mod.Instance(GuidebookMod.MODID)
-    public static GuidebookMod instance;
+	@SubscribeEvent
+	public static void registerItems (RegistryEvent.Register<Item> event) {
+		// TODO: Move into Arcane Archives
+		event.getRegistry().registerAll(new ItemGuidebook().setRegistryName("guidebook").setTranslationKey(GuidebookMod.MODID + ".guidebook").setHasSubtypes(true).setMaxStackSize(1));
+	}
 
-    // Says where the client and server 'proxy' code is loaded.
-    @SidedProxy(clientSide = "com.lireherz.guidebook.client.ClientProxy", serverSide = "com.lireherz.guidebook.server.ServerProxy")
-    public static IModProxy proxy;
-
-    // Items
-    @GameRegistry.ObjectHolder(MODID + ":guidebook")
-    public static ItemGuidebook guidebook;
-
-    public static Logger logger;
-
-    public static CreativeTabs tabGuidebooks = new CreativeTabs(MODID)
-    {
-        @Override
-        public ItemStack createIcon()
-        {
-            return new ItemStack(guidebook);
-        }
-    };
-
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        logger = event.getModLog();
-
-        proxy.preInit();
-    }
-
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event)
-    {
-        event.getRegistry().registerAll(
-                new ItemGuidebook().setRegistryName("guidebook")
-                        .setTranslationKey(GuidebookMod.MODID + ".guidebook")
-                        .setHasSubtypes(true)
-                        .setMaxStackSize(1)
-                        .setCreativeTab(GuidebookMod.tabGuidebooks)
-        );
-    }
-
-    @SubscribeEvent
-    public static void entityJoinWorld(EntityJoinWorldEvent event)
-    {
-        Entity e = event.getEntity();
-        if (e instanceof EntityPlayer && !e.getEntityWorld().isRemote)
-        {
-            for (String g : ConfigValues.giveOnFirstJoin)
-            {
-                String tag = MODID + ":givenBook:" + g;
-                if (!e.getTags().contains(tag))
-                {
-                    ItemHandlerHelper.giveItemToPlayer((EntityPlayer) e, guidebook.of(new ResourceLocation(g)));
-                    e.addTag(tag);
-                }
-            }
-        }
-    }
-
-    public static ResourceLocation location(String location)
-    {
-        return new ResourceLocation(MODID, location);
-    }
+	public static ResourceLocation location (String location) {
+		return new ResourceLocation(MODID, location);
+	}
 }
