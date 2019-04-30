@@ -16,13 +16,14 @@ import java.io.InputStream;
 
 public class BookRegistry {
 	// TODO
-	public static ResourceLocation ARCANE_TOME = new ResourceLocation(ArcaneArchives.MODID, "arcane_tome");
+	public static ResourceLocation ARCANE_TOME = new ResourceLocation(ArcaneArchives.MODID, "xml/tomb.xml");
 	public static BookDocument BOOK = null;
 
-	public static void parseAllBooks (IResourceManager manager) {
+	public static void parseAllBooks () {
 		TemplateLibrary.clear();
 
 		LanguageManager lm = Minecraft.getMinecraft().getLanguageManager();
+		IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
 
 		String lang = ObfuscationReflectionHelper.getPrivateValue(LanguageManager.class, lm, "field_135048_c");
 		if (lang == null) {
