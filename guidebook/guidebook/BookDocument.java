@@ -1,12 +1,12 @@
 package com.lireherz.guidebook.guidebook;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 import com.google.common.primitives.Floats;
 import com.google.common.primitives.Ints;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
 import com.lireherz.guidebook.guidebook.conditions.ConditionManager;
 import com.lireherz.guidebook.guidebook.drawing.VisualChapter;
@@ -426,7 +426,7 @@ public class BookDocument implements IConditionSource {
 					ElementInline parsedChild = parseParagraphElement(book, childNode, childNode.getNodeName(), isFirstElement, isLastElement, paragraphDefautls);
 
 					if (parsedChild == null) {
-						GuidebookMod.logger.warn("Unrecognized tag: {}", childNode.getNodeName());
+						ArcaneArchives.logger.warn("Unrecognized tag: {}", childNode.getNodeName());
 					} else {
 						p.inlines.add(parsedChild);
 					}
@@ -499,7 +499,7 @@ public class BookDocument implements IConditionSource {
 				parsedElement = parseParagraphElement(book, elementItem, nodeName, isFirstElement, isLastElement, defaultStyle);
 
 				if (parsedElement == null) {
-					GuidebookMod.logger.warn("Unrecognized tag: {}", nodeName);
+					ArcaneArchives.logger.warn("Unrecognized tag: {}", nodeName);
 				}
 			}
 
@@ -636,7 +636,7 @@ public class BookDocument implements IConditionSource {
 				parsedElement = parseParagraphElement(book, elementItem, nodeName, isFirstElement, isLastElement, defaultStyle);
 
 				if (parsedElement == null) {
-					GuidebookMod.logger.warn("Unrecognized tag: {}", nodeName);
+					ArcaneArchives.logger.warn("Unrecognized tag: {}", nodeName);
 				}
 			}
 

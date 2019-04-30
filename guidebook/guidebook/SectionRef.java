@@ -1,8 +1,8 @@
 package com.lireherz.guidebook.guidebook;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
-import com.lireherz.guidebook.GuidebookMod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,7 +62,7 @@ public class SectionRef {
 				//try to parse the section ref into a string: <chapter>:<section>
 				String ref_string = (Strings.isNullOrEmpty(chapterName) ? "<none>" : (chapterName)) + ":" + (Strings.isNullOrEmpty(sectionName) ? "<none>" : (sectionName));
 				//log error
-				GuidebookMod.logger.error(String.format("Invalid section reference: \"%s\" in book \"%s\" caused by: %s", ref_string, bookDocument.getName(), e.toString()));
+				ArcaneArchives.logger.error(String.format("Invalid section reference: \"%s\" in book \"%s\" caused by: %s", ref_string, bookDocument.getName(), e.toString()));
 				return false; // =section ref has no valid target
 			}
 		}

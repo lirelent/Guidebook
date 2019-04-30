@@ -80,21 +80,6 @@ public class TemplateLibrary implements IConditionSource {
 
 				ResourceLocation loc = new ResourceLocation(path);
 
-				// Prevents loading libraries from config folder if the book was found in resource packs.
-				if (useConfigFolder && loc.getNamespace().equals("gbook")) {
-					File booksFolder = BookRegistry.getBooksFolder();
-					File file = new File(booksFolder, loc.getPath());
-					if (file.exists() && file.isFile()) {
-						try (InputStream stream = new FileInputStream(file)) {
-							lib.parseLibrary(stream);
-							LIBRARIES.put(path, lib);
-							return lib;
-						} catch (FileNotFoundException e) {
-							// WUT? continue and try to load from resource pack
-						}
-					}
-				}
-
 				IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
 				try (InputStream stream = res.getInputStream()) {
 					lib.parseLibrary(stream);

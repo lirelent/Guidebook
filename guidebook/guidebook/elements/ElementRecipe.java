@@ -1,7 +1,7 @@
 package com.lireherz.guidebook.guidebook.elements;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.primitives.Ints;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.BookDocument;
 import com.lireherz.guidebook.guidebook.IBookGraphics;
 import com.lireherz.guidebook.guidebook.IConditionSource;
@@ -23,7 +23,7 @@ import java.util.List;
  * a background image, and additional components to display said recipe
  */
 public class ElementRecipe extends Element {
-	private ResourceLocation recipeProviderKey = new ResourceLocation(GuidebookMod.MODID, "shaped");
+	private ResourceLocation recipeProviderKey = new ResourceLocation(ArcaneArchives.MODID, "shaped");
 	private ResourceLocation recipeKey;
 	private Element recipeOutput;
 	private int recipeIndex = 0; // An index to use to specify a certain recipe when multiple ones exist for the target output item
@@ -98,7 +98,7 @@ public class ElementRecipe extends Element {
 		if (attr != null) {
 			String registryName = attr.getTextContent();
 			// If no domain is specified, insert Guidebook's modid (mostly needed for default recipe providers)
-			recipeProviderKey = new ResourceLocation((registryName.indexOf(':') == -1 ? GuidebookMod.MODID + ":" : "") + registryName);
+			recipeProviderKey = new ResourceLocation((registryName.indexOf(':') == -1 ? ArcaneArchives.MODID + ":" : "") + registryName);
 		}
 
 		attr = attributes.getNamedItem("key");
@@ -143,7 +143,7 @@ public class ElementRecipe extends Element {
 						}
 					}
 				} else {
-					GuidebookMod.logger.warn("<recipe.result> sub-node is empty; Must contain exactly one <stack> node child");
+					ArcaneArchives.logger.warn("<recipe.result> sub-node is empty; Must contain exactly one <stack> node child");
 				}
 			}
 		}

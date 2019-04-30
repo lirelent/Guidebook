@@ -1,30 +1,18 @@
 package com.lireherz.guidebook.guidebook.client;
 
 import com.aranaira.arcanearchives.ArcaneArchives;
-import com.google.common.base.Charsets;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.BookDocument;
 import com.lireherz.guidebook.guidebook.templates.TemplateLibrary;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.*;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import org.apache.commons.io.FileUtils;
 
 import javax.annotation.Nullable;
-import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static net.minecraftforge.fml.common.LoaderState.INITIALIZATION;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class BookRegistry {
 	// TODO

@@ -1,6 +1,6 @@
 package com.lireherz.guidebook.guidebook.client;
 
-import com.lireherz.guidebook.GuidebookMod;
+import com.aranaira.arcanearchives.ArcaneArchives;
 import gigaherz.common.client.ModelHandle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,10 +24,10 @@ public class AnimatedBookBackground implements IAnimatedBookBackground {
 
 	private boolean closing = false;
 
-	private final ModelHandle book00 = ModelHandle.of(GuidebookMod.location("gui/book.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-	private final ModelHandle book30 = ModelHandle.of(GuidebookMod.location("gui/book30.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-	private final ModelHandle book60 = ModelHandle.of(GuidebookMod.location("gui/book60.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-	private final ModelHandle book90 = ModelHandle.of(GuidebookMod.location("gui/book90.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+	private final ModelHandle book00 = ModelHandle.of(ArcaneArchives.location("gui/book.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+	private final ModelHandle book30 = ModelHandle.of(ArcaneArchives.location("gui/book30.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+	private final ModelHandle book60 = ModelHandle.of(ArcaneArchives.location("gui/book60.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+	private final ModelHandle book90 = ModelHandle.of(ArcaneArchives.location("gui/book90.obj")).vertexFormat(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
 
 	private final GuiGuidebook gui;
 

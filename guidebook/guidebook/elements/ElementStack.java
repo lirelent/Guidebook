@@ -1,7 +1,7 @@
 package com.lireherz.guidebook.guidebook.elements;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.primitives.Ints;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.IBookGraphics;
 import com.lireherz.guidebook.guidebook.IConditionSource;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
@@ -92,7 +92,7 @@ public class ElementStack extends ElementInline {
 			try {
 				tag = JsonToNBT.getTagFromJson(attr.getTextContent());
 			} catch (NBTException e) {
-				GuidebookMod.logger.warn("Invalid tag format: " + e.getMessage());
+				ArcaneArchives.logger.warn("Invalid tag format: " + e.getMessage());
 			}
 		}
 

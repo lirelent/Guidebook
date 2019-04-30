@@ -1,6 +1,6 @@
 package com.lireherz.guidebook.guidebook.recipe;
 
-import com.lireherz.guidebook.GuidebookMod;
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import com.lireherz.guidebook.guidebook.elements.ElementImage;
 import com.lireherz.guidebook.guidebook.elements.ElementStack;
@@ -28,7 +28,7 @@ class CraftingRecipeProvider extends RecipeProvider {
 	private static final int[] OUTPUT_SLOT_X = {80, 70};
 	private static final int[] OUTPUT_SLOT_Y = {22, 13};
 
-	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(GuidebookMod.MODID, "gui/recipe_backgrounds");
+	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(ArcaneArchives.MODID, "gui/recipe_backgrounds");
 	private static final int[] BACKGROUND_U = {0, 0};
 	private static final int[] BACKGROUND_V = {0, 60};
 	private static final int[] BACKGROUND_W = {100, 100};

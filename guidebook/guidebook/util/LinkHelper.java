@@ -1,7 +1,7 @@
 package com.lireherz.guidebook.guidebook.util;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.collect.Sets;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.IBookGraphics;
 import com.lireherz.guidebook.guidebook.elements.LinkContext;
 import net.minecraft.client.Minecraft;
@@ -92,7 +92,7 @@ public class LinkHelper {
 				openWebLink(uri);
 			}
 		} catch (URISyntaxException urisyntaxexception) {
-			GuidebookMod.logger.error("Can't open url {}", textTarget, urisyntaxexception);
+			ArcaneArchives.logger.error("Can't open url {}", textTarget, urisyntaxexception);
 		}
 	}
 
@@ -102,7 +102,7 @@ public class LinkHelper {
 			Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
 			oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, url);
 		} catch (Throwable throwable1) {
-			GuidebookMod.logger.error("Can't open url {}", url, throwable1);
+			ArcaneArchives.logger.error("Can't open url {}", url, throwable1);
 		}
 	}
 }

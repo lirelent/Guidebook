@@ -1,6 +1,6 @@
 package com.lireherz.guidebook.guidebook.recipe;
 
-import com.lireherz.guidebook.GuidebookMod;
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import com.lireherz.guidebook.guidebook.elements.ElementImage;
 import com.lireherz.guidebook.guidebook.elements.ElementStack;
@@ -23,7 +23,7 @@ public class FurnaceRecipeProvider extends RecipeProvider {
 	private static final int OUTPUT_SLOT_X = 64;
 	private static final int OUTPUT_SLOT_Y = 14;
 
-	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(GuidebookMod.MODID, "gui/recipe_backgrounds");
+	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(ArcaneArchives.MODID, "gui/recipe_backgrounds");
 	private static final int BACKGROUND_U = 0;
 	private static final int BACKGROUND_V = 101;
 	private static final int BACKGROUND_W = 100;
@@ -80,7 +80,7 @@ public class FurnaceRecipeProvider extends RecipeProvider {
 
 			return new ProvidedComponents(HEIGHT, recipeComponents, background, additionalRenderer);
 		} else {
-			GuidebookMod.logger.error(String.format("[FurnaceRecipeProvider] Recipe not found for '%s' although hasRecipe(...) returned true. Something is wrong!", targetOutput));
+			ArcaneArchives.logger.error(String.format("[FurnaceRecipeProvider] Recipe not found for '%s' although hasRecipe(...) returned true. Something is wrong!", targetOutput));
 		}
 		return null;
 	}
@@ -88,7 +88,7 @@ public class FurnaceRecipeProvider extends RecipeProvider {
 	@Nullable
 	@Override
 	public ProvidedComponents provideRecipeComponents (@Nonnull ResourceLocation recipeKey) {
-		GuidebookMod.logger.warn(String.format("[FurnaceRecipeProvider] Furnace recipe specified via recipeKey '%s', however furnace recipes are not registered using a ResourceLocation. Ignoring.", recipeKey));
+		ArcaneArchives.logger.warn(String.format("[FurnaceRecipeProvider] Furnace recipe specified via recipeKey '%s', however furnace recipes are not registered using a ResourceLocation. Ignoring.", recipeKey));
 		return null;
 	}
 }

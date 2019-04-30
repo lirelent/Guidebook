@@ -1,7 +1,7 @@
 package com.lireherz.guidebook.guidebook.recipe;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.collect.Maps;
-import com.lireherz.guidebook.GuidebookMod;
 import com.lireherz.guidebook.guidebook.drawing.VisualElement;
 import com.lireherz.guidebook.guidebook.elements.ElementImage;
 import com.lireherz.guidebook.guidebook.elements.ElementStack;
@@ -32,10 +32,10 @@ public abstract class RecipeProvider {
 
 	static {
 		CraftingRecipeProvider crafting = new CraftingRecipeProvider();
-		registry.put(GuidebookMod.location("crafting"), crafting);
-		registry.put(GuidebookMod.location("shaped"), crafting); // legacy
-		registry.put(GuidebookMod.location("shapeless"), crafting); // legacy
-		registry.put(GuidebookMod.location("smelting"), new FurnaceRecipeProvider());
+		registry.put(ArcaneArchives.location("crafting"), crafting);
+		registry.put(ArcaneArchives.location("shaped"), crafting); // legacy
+		registry.put(ArcaneArchives.location("shapeless"), crafting); // legacy
+		registry.put(ArcaneArchives.location("smelting"), new FurnaceRecipeProvider());
 	}
 
 	/**

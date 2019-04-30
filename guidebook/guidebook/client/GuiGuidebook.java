@@ -1,6 +1,6 @@
 package com.lireherz.guidebook.guidebook.client;
 
-import com.lireherz.guidebook.GuidebookMod;
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.lireherz.guidebook.guidebook.BookDocument;
 import com.lireherz.guidebook.guidebook.conditions.ConditionContext;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,7 @@ import org.lwjgl.input.Keyboard;
 import java.io.IOException;
 
 public class GuiGuidebook extends GuiScreen {
-	private static final ResourceLocation BOOK_GUI_TEXTURES = GuidebookMod.location("textures/gui/book.png");
+	private static final ResourceLocation BOOK_GUI_TEXTURES = ArcaneArchives.location("textures/gui/book.png");
 
 	public final ResourceLocation bookLocation;
 
@@ -61,7 +61,8 @@ public class GuiGuidebook extends GuiScreen {
 			ConditionContext conditionContext = new ConditionContext();
 			conditionContext.setPlayer(player);
 
-			BookDocument theBook = BookRegistry.get(bookLocation);
+			// TODO: Replace this with statically generated/restored book?
+			BookDocument theBook = BookRegistry.BOOK;
 			book = (BookRendering) theBook.getRendering();
 
 			boolean conditions = theBook.reevaluateConditions(conditionContext);
@@ -97,7 +98,7 @@ public class GuiGuidebook extends GuiScreen {
 				this.buttonPreviousChapter = new SpriteButton(btnId++, left + 2, bottom - 13, 4);
 				this.buttonNextChapter = new SpriteButton(btnId++, right - 23, bottom - 13, 5);
 			}
-			GuidebookMod.logger.info("Showing gui with " + btnId + " buttons.");
+			ArcaneArchives.logger.info("Showing gui with " + btnId + " buttons.");
 		}
 
 		this.buttonList.add(this.buttonHome);
