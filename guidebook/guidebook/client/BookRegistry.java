@@ -1,5 +1,6 @@
 package com.lireherz.guidebook.guidebook.client;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -26,60 +27,12 @@ import java.util.stream.Collectors;
 import static net.minecraftforge.fml.common.LoaderState.INITIALIZATION;
 
 public class BookRegistry {
-	public static final Set<ResourceLocation> REGISTRY = Sets.newHashSet();
-
-	private static boolean booksLoaded = false;
-	private static final Map<ResourceLocation, BookDocument> LOADED_BOOKS = Maps.newHashMap();
-
-	public static Map<ResourceLocation, BookDocument> getLoadedBooks () {
-		if (!booksLoaded) {
-			parseAllBooks(Minecraft.getMinecraft().getResourceManager());
-		}
-		return Collections.unmodifiableMap(LOADED_BOOKS);
-	}
-
-	public static void registerBook (ResourceLocation loc) {
-		if (Loader.instance().hasReachedState(INITIALIZATION)) {
-			throw new IllegalStateException("Books must be registered before init, preferably in the BookRegistryEvent.");
-		}
-		REGISTRY.add(loc);
-	}
-
-	@Nullable
-	public static BookDocument get (ResourceLocation loc) {
-		return getLoadedBooks().get(loc);
-	}
-
-	@Nullable
-	public static BookDocument get (ItemStack stack) {
-		String loc = GuidebookMod.guidebook.getBookLocation(stack);
-		return loc == null ? null : get(new ResourceLocation(loc));
-	}
+	// TODO
+	public static ResourceLocation ARCANE_TOME = new ResourceLocation(ArcaneArchives.MODID, "arcane_tome");
+	public static BookDocument BOOK = null;
 
 	public static void parseAllBooks (IResourceManager manager) {
-		booksLoaded = true;
-
 		TemplateLibrary.clear();
-
-		LOADED_BOOKS.clear();
-
-		Set<ResourceLocation> toLoad = Sets.newHashSet(REGISTRY);
-
-		for (String domain : manager.getResourceDomains()) {
-			try {
-				List<IResource> resources = manager.getAllResources(new ResourceLocation(domain, "books.json"));
-
-				for (IResource res : resources) {
-					loadBooksData(toLoad, res);
-				}
-			} catch (FileNotFoundException e) {
-				// IGNORE, it just means nothing was found
-			} catch (IOException e) {
-				GuidebookMod.logger.error("Error loading books from resourcepacks", e);
-			}
-		}
-
-		loadRawBookFiles();
 
 		LanguageManager lm = Minecraft.getMinecraft().getLanguageManager();
 
@@ -87,24 +40,8 @@ public class BookRegistry {
 		if (lang == null) {
 			lang = "en_us";
 		}
-		for (ResourceLocation loc : toLoad) {
-			if (!LOADED_BOOKS.containsKey(loc)) {
-				BookDocument book = parseBook(manager, loc, lang);
-				if (book != null) {
-					LOADED_BOOKS.put(loc, book);
-				}
-			}
-		}
-	}
 
-	private static Type listType = new TypeToken<List<String>>() {
-	}.getType();
-
-	private static void loadBooksData (Set<ResourceLocation> toLoad, IResource resource) throws IOException {
-		try (InputStream stream = resource.getInputStream()) {
-			List<String> yourList = new Gson().fromJson(new InputStreamReader(stream), listType);
-			toLoad.addAll(yourList.stream().map(ResourceLocation::new).collect(Collectors.toList()));
-		}
+		BOOK = parseBook(manager, ARCANE_TOME, lang);
 	}
 
 	@Nullable
@@ -144,41 +81,5 @@ public class BookRegistry {
 			bookDocument.initializeWithLoadError(e.toString());
 		}
 		return bookDocument;
-	}
-
-	@Nullable
-	private static BookDocument parseBook (ResourceLocation location, File file) {
-		BookDocument bookDocument = new BookDocument(location);
-		try {
-			InputStream stream = new FileInputStream(file);
-			if (!bookDocument.parseBook(stream, true)) {
-				return null;
-			}
-		} catch (IOException e) {
-			bookDocument.initializeWithLoadError(e.toString());
-		}
-		return bookDocument;
-	}
-
-	private static void loadRawBookFiles () {
-		File booksFolder = getBooksFolder();
-		if (booksFolder == null) {
-			return;
-		}
-
-		Collection<File> xmlFiles = FileUtils.listFiles(booksFolder, new String[]{"xml"}, true);
-
-		for (File f : xmlFiles) {
-			if (f.isFile()) {
-				ResourceLocation loc = new ResourceLocation(GuidebookMod.MODID, relativePath(booksFolder, f));
-
-				if (!LOADED_BOOKS.containsKey(loc)) {
-					BookDocument book = parseBook(loc, f);
-					if (book != null) {
-						LOADED_BOOKS.put(loc, book);
-					}
-				}
-			}
-		}
 	}
 }

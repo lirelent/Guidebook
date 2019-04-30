@@ -42,7 +42,7 @@ public class ItemGuidebook extends Item {
 			return EnumActionResult.FAIL;
 		}
 
-		GuidebookMod.proxy.displayBook(nbt.getString("Book"));
+		//GuidebookMod.proxy.displayBook(nbt.getString("Book"));
 
 		return EnumActionResult.SUCCESS;
 	}
@@ -57,11 +57,7 @@ public class ItemGuidebook extends Item {
 
 	@Override
 	public void getSubItems (CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (this.isInCreativeTab(tab)) {
-			for (ResourceLocation resourceLocation : GuidebookMod.proxy.getBooksList()) {
-				subItems.add(of(resourceLocation));
-			}
-		}
+		subItems.add(new ItemStack(this));
 	}
 
 	@Nullable
@@ -87,11 +83,6 @@ public class ItemGuidebook extends Item {
 
 	@Override
 	public String getItemStackDisplayName (ItemStack stack) {
-		String book = getBookLocation(stack);
-		if (!Strings.isNullOrEmpty(book)) {
-			return GuidebookMod.proxy.getBookName(book);
-		}
-
 		return super.getItemStackDisplayName(stack);
 	}
 }
