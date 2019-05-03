@@ -33,8 +33,7 @@ import java.util.function.Predicate;
 
 public class BookBakedModel implements IBakedModel
 {
-    private static final ResourceLocation FAKE_LOCATION = ArcaneArchives.location("models/block/custom/book");
-    private static final ResourceLocation BASE_MODEL = ArcaneArchives.location("block/book.obj");
+    private static final ResourceLocation BASE_MODEL = ArcaneArchives.location("models/gui/book.obj");
 
     private final TextureAtlasSprite particle;
     private final IModelState state;
@@ -176,7 +175,7 @@ public class BookBakedModel implements IBakedModel
         @Override
         public boolean accepts(ResourceLocation modelLocation)
         {
-            return FAKE_LOCATION.equals(modelLocation);
+            return BASE_MODEL.equals(modelLocation);
         }
 
         @Override
