@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 public class BookRegistry {
 	// TODO
-	public static ResourceLocation ARCANE_TOME = new ResourceLocation(ArcaneArchives.MODID, "xml/tomb.xml");
+	public static ResourceLocation ARCANE_TOME = new ResourceLocation(ArcaneArchives.MODID, "xml/tome.xml");
 	public static BookDocument BOOK = null;
 
 	public static void parseAllBooks () {
