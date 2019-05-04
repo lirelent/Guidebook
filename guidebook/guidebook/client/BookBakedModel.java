@@ -33,7 +33,8 @@ import java.util.function.Predicate;
 
 public class BookBakedModel implements IBakedModel
 {
-    private static final ResourceLocation BASE_MODEL = ArcaneArchives.location("models/gui/book.obj");
+    private static final ResourceLocation FAKE_LOCATION = new ResourceLocation(ArcaneArchives.MODID, "models/block/custom/book");
+    private static final ResourceLocation BASE_MODEL = new ResourceLocation(ArcaneArchives.MODID, "block/book.obj");
 
     private final TextureAtlasSprite particle;
     private final IModelState state;
@@ -99,7 +100,6 @@ public class BookBakedModel implements IBakedModel
                 NBTTagCompound tag = stack.getTagCompound();
                 if (tag != null)
                 {
-                    String book = tag.getString("Book");
                     BookDocument bookDocument = BookRegistry.BOOK;
                     if (bookDocument != null)
                     {
@@ -175,7 +175,7 @@ public class BookBakedModel implements IBakedModel
         @Override
         public boolean accepts(ResourceLocation modelLocation)
         {
-            return BASE_MODEL.equals(modelLocation);
+            return FAKE_LOCATION.equals(modelLocation);
         }
 
         @Override
