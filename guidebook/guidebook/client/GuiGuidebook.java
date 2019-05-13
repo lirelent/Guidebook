@@ -36,7 +36,7 @@ public class GuiGuidebook extends GuiScreen {
 	private ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 	private TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
 
-	private BookRendering book;
+	public BookRendering book;
 	private IAnimatedBookBackground background;
 	public static boolean useNaturalArrows = false;
 
@@ -226,6 +226,7 @@ public class GuiGuidebook extends GuiScreen {
 	public void drawScreen (int mouseX, int mouseY, float partialTicks) {
 		double backgroundScale = book.getScalingFactor() / book.getBook().getFontSize();
 		double bookHeight = BookRendering.DEFAULT_BOOK_HEIGHT * backgroundScale;
+		drawDefaultBackground();
 
 		background.draw(partialTicks, (int) bookHeight, (float) backgroundScale);
 

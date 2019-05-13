@@ -1,5 +1,6 @@
 package com.lireherz.guidebook.guidebook.client;
 
+import com.aranaira.arcanearchives.ArcaneArchives;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lireherz.guidebook.ConfigValues;
@@ -50,8 +51,8 @@ public class BookRendering implements IBookGraphics {
 
 	private double scaledWidthD;
 	private double scaledHeightD;
-	private double scaledWidth;
-	private double scaledHeight;
+	public double scaledWidth;
+	public double scaledHeight;
 
 	private int bookWidth;
 	private int bookHeight;
@@ -59,15 +60,15 @@ public class BookRendering implements IBookGraphics {
 	private int outerMargin;
 	private int topMargin;
 	private int bottomMargin;
-	private int pageWidth;
-	private int pageHeight;
+	public int pageWidth;
+	public int pageHeight;
 
 	private final List<VisualChapter> chapters = Lists.newArrayList();
 	private int lastProcessedChapter = 0;
 
 	private final java.util.Stack<PageRef> history = new java.util.Stack<>();
 	private int currentChapter = 0;
-	private int currentPair = 0;
+	private int currentPage = 0;
 
 	private boolean currentDrawingPage = false;
 
@@ -88,7 +89,6 @@ public class BookRendering implements IBookGraphics {
 		if (contentsChanged) {
 			history.clear();
 			currentChapter = 0;
-			currentPair = 0;
 		}
 	}
 
@@ -199,20 +199,20 @@ public class BookRendering implements IBookGraphics {
 	}
 
 	private void pushHistory () {
-		history.push(new PageRef(currentChapter, currentPair * 2));
+		history.push(new PageRef(currentChapter, currentPage));
 	}
 
 	@Override
 	public boolean canGoNextPage () {
-		return (getNextPair() >= 0 || canGoNextChapter());
+		return (getNextPageActual() >= 0 || canGoNextChapter());
 	}
 
 	@Override
 	public void nextPage () {
-		int pg = getNextPair();
+		int pg = getNextPageActual();
 		if (pg >= 0) {
 			pushHistory();
-			currentPair = pg;
+			currentPage = pg;
 		} else {
 			nextChapter();
 		}
@@ -220,15 +220,15 @@ public class BookRendering implements IBookGraphics {
 
 	@Override
 	public boolean canGoPrevPage () {
-		return getPrevPair() >= 0 || canGoPrevChapter();
+		return getPrevPageActual() >= 0 || canGoPrevChapter();
 	}
 
 	@Override
 	public void prevPage () {
-		int pg = getPrevPair();
+		int pg = getPrevPageActual();
 		if (pg >= 0) {
 			pushHistory();
-			currentPair = pg;
+			currentPage = pg;
 		} else {
 			prevChapter(true);
 		}
@@ -244,7 +244,7 @@ public class BookRendering implements IBookGraphics {
 		int ch = getNextChapter();
 		if (ch >= 0) {
 			pushHistory();
-			currentPair = 0;
+			currentPage = 0;
 			currentChapter = ch;
 		}
 	}
@@ -263,10 +263,10 @@ public class BookRendering implements IBookGraphics {
 		int ch = getPrevChapter();
 		if (ch >= 0) {
 			pushHistory();
-			currentPair = 0;
+			currentPage = 0;
 			currentChapter = ch;
 			if (lastPage) {
-				currentPair = getVisualChapter(ch).totalPairs - 1;
+				currentPage = getVisualChapter(ch).pages.size() - 1;
 			}
 		}
 	}
@@ -282,10 +282,10 @@ public class BookRendering implements IBookGraphics {
 			PageRef target = history.pop();
 			//target.resolve(book);
 			currentChapter = target.chapter;
-			currentPair = target.page / 2;
+			currentPage = target.page;
 		} else {
 			currentChapter = 0;
-			currentPair = 0;
+			currentPage = 0;
 		}
 	}
 
@@ -314,19 +314,19 @@ public class BookRendering implements IBookGraphics {
 		return -1;
 	}
 
-	private int getNextPair () {
+	private int getNextPageActual () {
 		VisualChapter ch = getVisualChapter(currentChapter);
-		if (currentPair + 1 >= ch.totalPairs) {
+		if (currentPage + 1 >= ch.pages.size()) {
 			return -1;
 		}
-		return currentPair + 1;
+		return currentPage + 1;
 	}
 
-	private int getPrevPair () {
-		if (currentPair - 1 < 0) {
+	private int getPrevPageActual () {
+		if (currentPage - 1 < 0) {
 			return -1;
 		}
-		return currentPair - 1;
+		return currentPage - 1;
 	}
 
 	private boolean needChapter (int chapterNumber) {
@@ -378,7 +378,8 @@ public class BookRendering implements IBookGraphics {
 
 		currentChapter = target.chapter;
 
-		currentPair = findSectionStart(target);
+		// TODO: find Section Start
+		currentPage = findSectionStart(target);
 	}
 
 	private VisualChapter getVisualChapter (int chapter) {
@@ -391,13 +392,12 @@ public class BookRendering implements IBookGraphics {
 			VisualChapter ch = new VisualChapter();
 			if (chapters.size() > 0) {
 				VisualChapter prev = chapters.get(chapters.size() - 1);
-				ch.startPair = prev.startPair + prev.totalPairs;
+				ch.startPage = prev.startPage + prev.pages.size();
 			}
 
 			Size pageSize = new Size(pageWidth, pageHeight);
 			bc.reflow(this, ch, pageSize);
 
-			ch.totalPairs = (ch.pages.size() + 1) / 2;
 			chapters.add(ch);
 		}
 
@@ -449,17 +449,11 @@ public class BookRendering implements IBookGraphics {
 		if (mouseButton == 0) {
 			VisualChapter ch = getVisualChapter(currentChapter);
 
-			if (currentPair * 2 < ch.pages.size()) {
-				final VisualPage pgLeft = ch.pages.get(currentPair * 2);
+			if (currentPage < ch.pages.size()) {
+				final VisualPage pgLeft = ch.pages.get(currentPage);
 
 				if (mouseClickPage(mouseX, mouseY, pgLeft, true)) {
 					return true;
-				}
-
-				if (currentPair * 2 + 1 < ch.pages.size()) {
-					final VisualPage pgRight = ch.pages.get(currentPair * 2 + 1);
-
-					return mouseClickPage(mouseX, mouseY, pgRight, false);
 				}
 			}
 		}
@@ -485,18 +479,10 @@ public class BookRendering implements IBookGraphics {
 	public boolean mouseHover (int mouseX, int mouseY) {
 		VisualChapter ch = getVisualChapter(currentChapter);
 
-		if (currentPair * 2 < ch.pages.size()) {
-			final VisualPage pgLeft = ch.pages.get(currentPair * 2);
+		if (currentPage < ch.pages.size()) {
+			final VisualPage pgLeft = ch.pages.get(currentPage);
 
 			VisualElement hovering = mouseHoverPage(pgLeft, true);
-
-			if (hovering == null) {
-				if (currentPair * 2 + 1 < ch.pages.size()) {
-					final VisualPage pgRight = ch.pages.get(currentPair * 2 + 1);
-
-					hovering = mouseHoverPage(pgRight, false);
-				}
-			}
 
 			if (hovering != previousHovering && previousHovering != null) {
 				previousHovering.mouseOut(this, mouseX, mouseY);
@@ -548,8 +534,7 @@ public class BookRendering implements IBookGraphics {
 			Gui.drawRect(l, t, l + bookWidth, t + bookHeight, 0x2f000000);
 		}
 
-		drawPage(currentPair * 2);
-		drawPage(currentPair * 2 + 1);
+		drawPage(currentPage);
 
 		if (hasScale) {
 			GlStateManager.popMatrix();
@@ -570,7 +555,7 @@ public class BookRendering implements IBookGraphics {
 			return;
 		}
 
-		currentDrawingPage = (page & 1) == 0;
+		currentDrawingPage = true;
 
 		VisualPage pg = ch.pages.get(page);
 
@@ -590,7 +575,7 @@ public class BookRendering implements IBookGraphics {
 			e.draw(this);
 		}
 
-		String cnt = String.valueOf(ch.startPair * 2 + page + 1);
+		String cnt = String.valueOf(ch.startPage + page + 1);
 		Size sz = measure(cnt);
 
 		addString((pageWidth - sz.width) / 2, pageHeight + 8, cnt, 0xFF000000, 1.0f);
@@ -725,7 +710,7 @@ public class BookRendering implements IBookGraphics {
 		this.gui = guiGuidebook;
 	}
 
-	public static final IAnimatedBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
+	public static final IAnimatedBookBackgroundFactory DEFAULT_BACKGROUND = ArcaneArchivesBackground::new; //AnimatedBookBackground::new; // ArcaneArchivesBackground::new;
 	public static final Map<ResourceLocation, IAnimatedBookBackgroundFactory> BACKGROUND_FACTORY_MAP = Maps.newHashMap();
 
 	public IAnimatedBookBackground createBackground (GuiGuidebook guiGuidebook) {
