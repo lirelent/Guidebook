@@ -1,253 +1,34 @@
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="book">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="include" maxOccurs="unbounded" minOccurs="0">
-                    <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="xs:string">
-                                <xs:attribute type="xs:string" name="ref" use="required"/>
-                            </xs:extension>
-                        </xs:simpleContent>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="conditions">
-                    <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="condition-list" />
-                        </xs:simpleContent>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="chapter" maxOccurs="unbounded" minOccurs="0">
-                    <xs:complexType mixed="true">
-                        <xs:sequence>
-                            <xs:element name="section" maxOccurs="unbounded" minOccurs="0">
-                                <xs:complexType>
-                                    <xs:choice maxOccurs="unbounded" minOccurs="0">
-                                        <xs:element name="p">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:float" name="scale" use="optional"/>
-                                                        <xs:attribute type="xs:string" name="align" use="optional"/>
-                                                        <xs:attribute type="xs:string" name="condition" use="optional"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="title">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:string" name="bold" use="optional"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="space">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:byte" name="height" use="optional"/>
-                                                        <xs:attribute type="xs:byte" name="space" use="optional"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="link">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:byte" name="indent" use="optional"/>
-                                                        <xs:attribute type="xs:string" name="ref" use="optional"/>
-                                                        <xs:attribute type="xs:string" name="condition" use="optional"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element type="xs:string" name="section-break"/>
-                                    </xs:choice>
-                                    <xs:attribute type="xs:string" name="condition" use="optional"/>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="section" maxOccurs="unbounded" minOccurs="0">
-                                <xs:complexType mixed="true">
-                                    <xs:choice maxOccurs="unbounded" minOccurs="0">
-                                        <xs:element name="p">
-                                            <xs:complexType mixed="true">
-                                                <xs:sequence>
-                                                    <xs:element name="link" minOccurs="0">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="xs:string">
-                                                                    <xs:attribute type="xs:string" name="ref"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                                <xs:attribute type="xs:byte" name="space" use="optional"/>
-                                                <xs:attribute type="xs:string" name="align" use="optional"/>
-                                                <xs:attribute type="xs:string" name="src" use="optional"/>
-                                                <xs:attribute type="xs:byte" name="x" use="optional"/>
-                                                <xs:attribute type="xs:byte" name="y" use="optional"/>
-                                                <xs:attribute type="xs:short" name="tw" use="optional"/>
-                                                <xs:attribute type="xs:short" name="th" use="optional"/>
-                                                <xs:attribute type="xs:string" name="color" use="optional"/>
-                                                <xs:attribute type="xs:string" name="underline" use="optional"/>
-                                                <xs:attribute type="xs:string" name="ref" use="optional"/>
-                                                <xs:attribute type="xs:string" name="bold" use="optional"/>
-                                                <xs:attribute type="xs:byte" name="indent" use="optional"/>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="link">
-                                            <xs:complexType mixed="true">
-                                                <xs:sequence>
-                                                    <xs:element name="image" minOccurs="0">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="xs:string">
-                                                                    <xs:attribute type="xs:string" name="src"/>
-                                                                    <xs:attribute type="xs:byte" name="tw"/>
-                                                                    <xs:attribute type="xs:byte" name="th"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                                <xs:attribute type="xs:string" name="href" use="optional"/>
-                                                <xs:attribute type="xs:string" name="action" use="optional"/>
-                                                <xs:attribute type="xs:string" name="text" use="optional"/>
-                                                <xs:attribute type="xs:byte" name="indent" use="optional"/>
-                                                <xs:attribute type="xs:string" name="ref" use="optional"/>
-                                                <xs:attribute type="xs:string" name="align" use="optional"/>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element type="xs:string" name="title"/>
-                                        <xs:element name="big_recipe">
-                                            <xs:complexType mixed="true">
-                                                <xs:choice maxOccurs="unbounded" minOccurs="0">
-                                                    <xs:element name="stack">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="xs:string">
-                                                                    <xs:attribute type="xs:string" name="item" use="optional"/>
-                                                                    <xs:attribute type="xs:byte" name="meta" use="optional"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="space">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="xs:string">
-                                                                    <xs:attribute type="xs:string" name="item" use="optional"/>
-                                                                    <xs:attribute type="xs:byte" name="meta" use="optional"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:choice>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="small_recipe">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="stack" maxOccurs="unbounded" minOccurs="0">
-                                                        <xs:complexType>
-                                                            <xs:simpleContent>
-                                                                <xs:extension base="xs:string">
-                                                                    <xs:attribute type="xs:string" name="item" use="optional"/>
-                                                                </xs:extension>
-                                                            </xs:simpleContent>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="recipe">
-                                            <xs:complexType mixed="true">
-                                                <xs:sequence>
-                                                    <xs:element name="recipe.result" minOccurs="0">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="stack">
-                                                                    <xs:complexType>
-                                                                        <xs:simpleContent>
-                                                                            <xs:extension base="xs:string">
-                                                                                <xs:attribute type="xs:string" name="item"/>
-                                                                            </xs:extension>
-                                                                        </xs:simpleContent>
-                                                                    </xs:complexType>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                                <xs:attribute type="xs:string" name="type" use="optional"/>
-                                                <xs:attribute type="xs:string" name="key" use="optional"/>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="space">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:string" name="height"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="image">
-                                            <xs:complexType>
-                                                <xs:simpleContent>
-                                                    <xs:extension base="xs:string">
-                                                        <xs:attribute type="xs:string" name="src" use="optional"/>
-                                                        <xs:attribute type="xs:short" name="tw" use="optional"/>
-                                                        <xs:attribute type="xs:short" name="th" use="optional"/>
-                                                    </xs:extension>
-                                                </xs:simpleContent>
-                                            </xs:complexType>
-                                        </xs:element>
-                                    </xs:choice>
-                                    <xs:attribute type="xs:string" name="id" use="optional"/>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                        <xs:attribute type="xs:string" name="condition" use="optional"/>
-                        <xs:attribute type="xs:string" name="id" use="optional"/>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="title"/>
-            <xs:attribute type="xs:string" name="cover"/>
-            <xs:attribute type="xs:float" name="fontSize"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:complexType name="condition">
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- =============================================  START OF TYPES ================================ -->
+
+    <xs:complexType name="condition_type">
         <xs:sequence>
         </xs:sequence>
-        <xs:attribute type="xs:string" name="name" />
+        <xs:attribute type="xs:string" name="name"/>
     </xs:complexType>
-    <xs:complexType name="condition-with-list">
+
+    <xs:complexType name="condition_with_list_type">
         <xs:simpleContent>
-            <xs:extension base="condition">
+            <xs:extension base="condition_type">
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
-    <xs:complexType name="condition-list">
+
+    <xs:complexType name="condition_list_type">
         <xs:sequence>
-            <xs:element name="true" maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="true" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="condition">
+                        <xs:extension base="condition_type">
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="false" maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="false" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="condition">
+                        <xs:extension base="condition_type">
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -255,26 +36,26 @@
             <xs:element name="item-exists">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="condition">
+                        <xs:extension base="condition_type">
                             <xs:attribute type="xs:string" name="registry-name"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="all" maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="all" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="condition">
+                        <xs:extension base="condition_type">
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="not" maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="not" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="condition">
+                        <xs:extension base="condition_type">
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -301,4 +82,180 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="page_title_type">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="title"/>
+                <xs:element name="p"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="stack_type" mixed="true">
+        <xs:attribute name="item"/>
+        <xs:attribute name="ore"/>
+        <xs:attribute name="meta"/>
+        <xs:attribute name="count" default="1"/>
+    </xs:complexType>
+
+    <xs:complexType name="image_t">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:integer" name="tx"/>
+                <xs:attribute type="xs:integer" name="ty"/>
+                <xs:attribute type="xs:integer" name="tw"/>
+                <xs:attribute type="xs:integer" name="th"/>
+                <xs:attribute type="xs:string" name="src"/>
+                <xs:attribute type="xs:float" name="scale"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="link_t" mixed="true">
+        <xs:sequence>
+            <xs:element name="image" type="image_t" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="href"/>
+        <xs:attribute type="xs:string" name="action"/>
+        <xs:attribute type="xs:string" name="text"/>
+        <xs:attribute type="xs:byte" name="indent"/>
+        <xs:attribute type="xs:string" name="ref"/>
+        <xs:attribute type="xs:string" name="align"/>
+        <xs:attribute type="xs:string" name="condition"/>
+    </xs:complexType>
+
+    <xs:complexType name="p_type" mixed="true">
+        <xs:sequence>
+            <xs:element name="link" minOccurs="0" type="link_t"/>
+        </xs:sequence>
+        <xs:attribute type="xs:byte" name="space"/>
+        <xs:attribute type="xs:string" name="align"/>
+        <xs:attribute type="xs:string" name="src"/>
+        <xs:attribute type="xs:byte" name="x"/>
+        <xs:attribute type="xs:byte" name="y"/>
+        <xs:attribute type="xs:short" name="tw"/>
+        <xs:attribute type="xs:short" name="th"/>
+        <xs:attribute type="xs:string" name="color"/>
+        <xs:attribute type="xs:string" name="underline"/>
+        <xs:attribute type="xs:string" name="ref"/>
+        <xs:attribute type="xs:string" name="bold"/>
+        <xs:attribute type="xs:byte" name="indent"/>
+        <xs:attribute type="xs:float" name="scale"/>
+        <xs:attribute type="xs:string" name="condition"/>
+        <xs:attribute type="xs:boolean" name="italics"/>
+    </xs:complexType>
+
+    <xs:complexType name="recipe_t" mixed="true">
+        <xs:sequence>
+            <xs:element name="recipe.result" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="stack" type="stack_type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="type"/>
+        <xs:attribute type="xs:string" name="key"/>
+        <xs:attribute type="xs:string" name="index"/>
+    </xs:complexType>
+
+    <!-- =============================================  END OF TYPES ================================ -->
+
+    <xs:element name="book">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="include" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute type="xs:string" name="ref" use="required"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="conditions" type="condition_with_list_type" minOccurs="0"/>
+                <xs:element name="chapter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:element name="section" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType mixed="true">
+                                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                        <xs:element name="divider"/>
+                                        <xs:element name="page_title" type="page_title_type"/>
+                                        <xs:element name="page-break"/>
+                                        <xs:element name="stack" type="stack_type"/>
+                                        <xs:element name="p" type="p_type"/>
+                                        <xs:element name="section-break"/>
+                                        <xs:element name="link" type="link_t"/>
+                                        <xs:element name="title">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="bold"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="big_recipe">
+                                            <xs:complexType mixed="true">
+                                                <xs:choice maxOccurs="unbounded">
+                                                    <xs:element name="stack" type="stack_type"/>
+                                                    <xs:element name="space">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attribute type="xs:string" name="item"/>
+                                                                    <xs:attribute type="xs:byte" name="meta"/>
+                                                                    <xs:attribute type="xs:byte" name="height"/>
+                                                                    <xs:attribute type="xs:byte" name="space"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="small_recipe">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="stack" type="stack_type"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="recipe" type="recipe_t"/>
+                                        <xs:element name="space">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="height"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="image" type="image_t"/>
+                                    </xs:choice>
+                                    <xs:attribute type="xs:string" name="id"/>
+                                    <xs:attribute type="xs:string" name="condition"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="condition"/>
+                        <xs:attribute type="xs:string" name="id"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="stack-links">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="stack" type="stack_type"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="title"/>
+            <xs:attribute type="xs:string" name="cover"/>
+            <xs:attribute type="xs:float" name="fontSize"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
