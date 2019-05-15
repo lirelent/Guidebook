@@ -84,14 +84,14 @@ public class GuiGuidebook extends GuiScreen
                 }
             }
 
-            background = book.createBackground(this);
+            background = book.getBookBackground();
 
             int btnId = 0;
 
-            int left = (this.width - BookRendering.DEFAULT_BOOK_WIDTH) / 2;
-            int right = left + BookRendering.DEFAULT_BOOK_WIDTH;
-            int top = (this.height - BookRendering.DEFAULT_BOOK_HEIGHT) / 2 - 9;
-            int bottom = top + BookRendering.DEFAULT_BOOK_HEIGHT;
+            int left = (this.width - background.getWidth()) / 2;
+            int right = left + background.getWidth();
+            int top = (this.height - background.getHeight()) / 2 - 9;
+            int bottom = top + background.getHeight();
             this.buttonHome = new SpriteButton(btnId++, left - 10, top - 8, 6);
             this.buttonBack = new SpriteButton(btnId++, left + 8, top - 5, 2);
             this.buttonClose = new SpriteButton(btnId++, right - 6, top - 6, 3);
@@ -224,8 +224,8 @@ public class GuiGuidebook extends GuiScreen
         setupConditionsAndPosition();
 
         double bookScale = book.getScalingFactor() / book.getBook().getFontSize();
-        double bookWidth = (BookRendering.DEFAULT_BOOK_WIDTH) * bookScale;
-        double bookHeight = (BookRendering.DEFAULT_BOOK_HEIGHT) * bookScale;
+        double bookWidth = background.getWidth() * bookScale;
+        double bookHeight = background.getHeight() * bookScale;
 
         int left = (int) ((this.width - bookWidth) / 2);
         int right = (int) (left + bookWidth);
@@ -260,7 +260,7 @@ public class GuiGuidebook extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         double backgroundScale = book.getScalingFactor() / book.getBook().getFontSize();
-        double bookHeight = BookRendering.DEFAULT_BOOK_HEIGHT * backgroundScale;
+        double bookHeight = background.getHeight() * backgroundScale;
 
         background.draw(partialTicks, (int) bookHeight, (float)backgroundScale);
 

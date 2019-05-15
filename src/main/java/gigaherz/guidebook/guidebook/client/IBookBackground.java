@@ -28,4 +28,36 @@ public interface IBookBackground
      * @param backgroundScale how much the book background should be scaled
      */
     void draw(float partialTicks, int bookHeight, float backgroundScale);
+
+    /**
+     * @return width of the book background in pixels
+     */
+    int getWidth();
+
+    /**
+     * @return height of the book background in pixels
+     */
+    int getHeight();
+
+    /**
+     * @return margin between text and binding of the book in pixels
+     */
+    int getInnerMargin();
+
+    /**
+     * @return margin between text and outside edge of the book in pixels
+     */
+    int getOuterMargin();
+
+    /**
+     * @return margin between text and top edge of the book in pixels
+     */
+    int getTopMargin();
+
+    /**
+     * @return margin between text and bottom edge of the book in pixels
+     */
+    int getBottomMargin();
+
+    int getBookScaleMargin();
 }

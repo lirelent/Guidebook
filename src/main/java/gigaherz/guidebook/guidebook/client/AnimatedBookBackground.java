@@ -38,6 +38,48 @@ public class AnimatedBookBackground implements IBookBackground
     }
 
     @Override
+    public int getWidth()
+    {
+        return 276;
+    }
+
+    @Override
+    public int getHeight()
+    {
+        return 198;
+    }
+
+    @Override
+    public int getInnerMargin()
+    {
+        return 16;
+    }
+
+    @Override
+    public int getOuterMargin()
+    {
+        return 10;
+    }
+
+    @Override
+    public int getTopMargin()
+    {
+        return 10;
+    }
+
+    @Override
+    public int getBottomMargin()
+    {
+        return 18;
+    }
+
+    @Override
+    public int getBookScaleMargin()
+    {
+        return 20;
+    }
+
+    @Override
     public void startClosing()
     {
         closing = true;

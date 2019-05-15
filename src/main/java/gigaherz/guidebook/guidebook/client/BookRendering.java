@@ -31,18 +31,11 @@ import java.util.function.Consumer;
 
 public class BookRendering implements IBookGraphics
 {
-    public static final int DEFAULT_BOOK_WIDTH = 276;
-    public static final int DEFAULT_BOOK_HEIGHT = 198;
-    public static final int DEFAULT_INNER_MARGIN = 16;
-    public static final int DEFAULT_OUTER_MARGIN = 10;
-    public static final int DEFAULT_TOP_MARGIN = 10;
-    public static final int DEFAULT_BOTTOM_MARGIN = 18;
-    public static final int BOOK_SCALE_MARGIN = 20;
-
     private final Minecraft mc = Minecraft.getMinecraft();
     private GuiGuidebook gui;
 
     private BookDocument book;
+    private IBookBackground bookBackground;
 
     private boolean hasScale;
     private double scalingFactor;
@@ -72,12 +65,17 @@ public class BookRendering implements IBookGraphics
 
     private VisualElement previousHovering = null;
 
-    public static boolean DEBUG_DRAW_BOUNDS = false;
+    public static boolean DEBUG_DRAW_BOUNDS = true;
 
     BookRendering(BookDocument book, GuiGuidebook gui)
     {
         this.book = book;
         this.gui = gui;
+        this.bookBackground = createBackground(gui);
+    }
+    
+    IBookBackground getBookBackground() {
+        return bookBackground;
     }
 
     @Override
@@ -111,8 +109,8 @@ public class BookRendering implements IBookGraphics
         int width = mc.displayWidth;
         int height = mc.displayHeight;
 
-        double w = (DEFAULT_BOOK_WIDTH + 2 * BOOK_SCALE_MARGIN) / scaleFactorCoef;
-        double h = (DEFAULT_BOOK_HEIGHT + 2 * BOOK_SCALE_MARGIN) / scaleFactorCoef;
+        double w = (bookBackground.getWidth() + 2 * bookBackground.getBookScaleMargin()) / scaleFactorCoef;
+        double h = (bookBackground.getHeight() + 2 * bookBackground.getBookScaleMargin()) / scaleFactorCoef;
 
         int scaleFactor = 1;
         boolean flag = mc.isUnicode();
@@ -144,8 +142,8 @@ public class BookRendering implements IBookGraphics
         int width = mc.displayWidth;
         int height = mc.displayHeight;
 
-        double w = (DEFAULT_BOOK_WIDTH + 2 * BOOK_SCALE_MARGIN) / scaleFactorCoef;
-        double h = (DEFAULT_BOOK_HEIGHT + 2 * BOOK_SCALE_MARGIN) / scaleFactorCoef;
+        double w = (bookBackground.getWidth() + 2 * bookBackground.getBookScaleMargin()) / scaleFactorCoef;
+        double h = (bookBackground.getHeight() + 2 * bookBackground.getBookScaleMargin()) / scaleFactorCoef;
 
         double scale = Math.min(
                 width / w,
@@ -185,12 +183,12 @@ public class BookRendering implements IBookGraphics
         {
             this.scalingFactor = Math.min(gui.width / scaledWidth, gui.height / scaledHeight);
 
-            this.bookWidth = (int) (DEFAULT_BOOK_WIDTH / fontSize);
-            this.bookHeight = (int) (DEFAULT_BOOK_HEIGHT / fontSize);
-            this.innerMargin = (int) (DEFAULT_INNER_MARGIN / fontSize);
-            this.outerMargin = (int) (DEFAULT_OUTER_MARGIN / fontSize);
-            this.topMargin = (int) (DEFAULT_TOP_MARGIN / fontSize);
-            this.bottomMargin = (int) (DEFAULT_BOTTOM_MARGIN / fontSize);
+            this.bookWidth = (int) (bookBackground.getWidth() / fontSize);
+            this.bookHeight = (int) (bookBackground.getHeight() / fontSize);
+            this.innerMargin = (int) (bookBackground.getInnerMargin() / fontSize);
+            this.outerMargin = (int) (bookBackground.getOuterMargin() / fontSize);
+            this.topMargin = (int) (bookBackground.getTopMargin() / fontSize);
+            this.bottomMargin = (int) (bookBackground.getBottomMargin() / fontSize);
         }
         else
         {
@@ -199,12 +197,12 @@ public class BookRendering implements IBookGraphics
             this.scaledWidth = gui.width;
             this.scaledHeight = gui.height;
 
-            this.bookWidth = DEFAULT_BOOK_WIDTH;
-            this.bookHeight = DEFAULT_BOOK_HEIGHT;
-            this.innerMargin = DEFAULT_INNER_MARGIN;
-            this.outerMargin = DEFAULT_OUTER_MARGIN;
-            this.topMargin = DEFAULT_TOP_MARGIN;
-            this.bottomMargin = DEFAULT_BOTTOM_MARGIN;
+            this.bookWidth = bookBackground.getWidth();
+            this.bookHeight = bookBackground.getHeight();
+            this.innerMargin = bookBackground.getInnerMargin();
+            this.outerMargin = bookBackground.getOuterMargin();
+            this.topMargin = bookBackground.getTopMargin();
+            this.bottomMargin = bookBackground.getBottomMargin();
         }
 
         this.pageWidth = this.bookWidth / 2 - this.innerMargin - this.outerMargin;
@@ -836,7 +834,7 @@ public class BookRendering implements IBookGraphics
 
     public static final IBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
     public static final Map<ResourceLocation, IBookBackgroundFactory> BACKGROUND_FACTORY_MAP = Maps.newHashMap();
-    public IBookBackground createBackground(GuiGuidebook guiGuidebook)
+    private IBookBackground createBackground(GuiGuidebook guiGuidebook)
     {
         ResourceLocation loc = book.getBackground();
         IBookBackgroundFactory factory = null;
