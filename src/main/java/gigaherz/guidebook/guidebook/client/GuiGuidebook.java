@@ -2,10 +2,7 @@ package gigaherz.guidebook.guidebook.client;
 
 import gigaherz.guidebook.GuidebookMod;
 import gigaherz.guidebook.guidebook.BookDocument;
-import gigaherz.guidebook.guidebook.IBookGraphics;
 import gigaherz.guidebook.guidebook.conditions.ConditionContext;
-import jdk.nashorn.internal.ir.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -15,14 +12,11 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
@@ -44,7 +38,7 @@ public class GuiGuidebook extends GuiScreen
     private TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
 
     private BookRendering book;
-    private IAnimatedBookBackground background;
+    private IBookBackground background;
     public static boolean useNaturalArrows = false;
 
     public GuiGuidebook(ResourceLocation book)

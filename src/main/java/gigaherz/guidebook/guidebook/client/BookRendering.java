@@ -834,12 +834,12 @@ public class BookRendering implements IBookGraphics
         this.gui = guiGuidebook;
     }
 
-    public static final IAnimatedBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
-    public static final Map<ResourceLocation, IAnimatedBookBackgroundFactory> BACKGROUND_FACTORY_MAP = Maps.newHashMap();
-    public IAnimatedBookBackground createBackground(GuiGuidebook guiGuidebook)
+    public static final IBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
+    public static final Map<ResourceLocation, IBookBackgroundFactory> BACKGROUND_FACTORY_MAP = Maps.newHashMap();
+    public IBookBackground createBackground(GuiGuidebook guiGuidebook)
     {
         ResourceLocation loc = book.getBackground();
-        IAnimatedBookBackgroundFactory factory = null;
+        IBookBackgroundFactory factory = null;
         if (loc != null) factory = BACKGROUND_FACTORY_MAP.get(loc);
         return ((factory != null) ? factory : DEFAULT_BACKGROUND).create(guiGuidebook);
     }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import static net.minecraft.client.renderer.RenderHelper.setColorBuffer;
 
-public class AnimatedBookBackground implements IAnimatedBookBackground
+public class AnimatedBookBackground implements IBookBackground
 {
     private static float angleSpeed = (1 / 0.35f) / 20;
     private float angleT = 1;
