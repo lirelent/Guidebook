@@ -1,7 +1,8 @@
-package gigaherz.guidebook.guidebook.client;
+package gigaherz.guidebook.guidebook.client.background;
 
 import gigaherz.common.client.ModelHandle;
 import gigaherz.guidebook.GuidebookMod;
+import gigaherz.guidebook.guidebook.client.GuiGuidebook;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
@@ -32,7 +34,7 @@ public class AnimatedBookBackground implements IBookBackground
 
     private final GuiGuidebook gui;
 
-    public AnimatedBookBackground(GuiGuidebook gui)
+    public AnimatedBookBackground(GuiGuidebook gui, ResourceLocation backgroundLocation)
     {
         this.gui = gui;
     }
@@ -99,6 +101,7 @@ public class AnimatedBookBackground implements IBookBackground
             angleT += angleSpeed;
             if (angleT >= 1)
             {
+                closing = false;
                 return true;
             }
         }

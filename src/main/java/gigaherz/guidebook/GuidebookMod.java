@@ -2,6 +2,8 @@ package gigaherz.guidebook;
 
 import gigaherz.guidebook.common.IModProxy;
 import gigaherz.guidebook.guidebook.ItemGuidebook;
+import gigaherz.guidebook.guidebook.client.BookRendering;
+import gigaherz.guidebook.guidebook.client.background.StaticImage2PageBackground;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,6 +59,8 @@ public class GuidebookMod
         logger = event.getModLog();
 
         proxy.preInit();
+
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/two_side_2d_background.png"), StaticImage2PageBackground.twoSide2dBackgroundFactory);
     }
 
     @SubscribeEvent

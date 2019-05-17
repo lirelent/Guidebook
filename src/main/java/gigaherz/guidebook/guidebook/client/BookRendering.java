@@ -7,6 +7,9 @@ import gigaherz.guidebook.guidebook.BookDocument;
 import gigaherz.guidebook.guidebook.HoverContext;
 import gigaherz.guidebook.guidebook.IBookGraphics;
 import gigaherz.guidebook.guidebook.SectionRef;
+import gigaherz.guidebook.guidebook.client.background.AnimatedBookBackground;
+import gigaherz.guidebook.guidebook.client.background.IBookBackground;
+import gigaherz.guidebook.guidebook.client.background.IBookBackgroundFactory;
 import gigaherz.guidebook.guidebook.drawing.*;
 import gigaherz.guidebook.guidebook.util.PointD;
 import gigaherz.guidebook.guidebook.util.Size;
@@ -72,6 +75,8 @@ public class BookRendering implements IBookGraphics
         this.book = book;
         this.gui = gui;
         this.bookBackground = createBackground(gui);
+
+        refreshScalingFactor();
     }
     
     IBookBackground getBookBackground() {
@@ -832,14 +837,38 @@ public class BookRendering implements IBookGraphics
         this.gui = guiGuidebook;
     }
 
-    public static final IBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
+    /**
+     * Registry of {@link IBookBackgroundFactory}s keyed by the {@link ResourceLocation} of the background image/model
+     * returned by {@link BookDocument#getBackground()}. It is intended that other mods can add appropriate entries
+     * in this map so they can specify their own {@link IBookBackground} to have the text of their GuideBook rendered
+     * above.
+     */
     public static final Map<ResourceLocation, IBookBackgroundFactory> BACKGROUND_FACTORY_MAP = Maps.newHashMap();
+    /**
+     * If no {@link IBookBackgroundFactory} found in {@link #BACKGROUND_FACTORY_MAP} for
+     * {@link BookDocument#getBackground()} then use this factory
+     */
+    public static final IBookBackgroundFactory DEFAULT_BACKGROUND = AnimatedBookBackground::new;
+
+    /**
+     * Use {@link #BACKGROUND_FACTORY_MAP} to get the appropriate {@link IBookBackground} for this book
+     *
+     * @param guiGuidebook the {@link GuiGuidebook} that the {@link IBookBackground} should draw to
+     * @return {@link IBookBackground} representing the background of this {@link BookRendering}, returned by
+     * {@link #getBookBackground()}
+     */
     private IBookBackground createBackground(GuiGuidebook guiGuidebook)
     {
-        ResourceLocation loc = book.getBackground();
-        IBookBackgroundFactory factory = null;
-        if (loc != null) factory = BACKGROUND_FACTORY_MAP.get(loc);
-        return ((factory != null) ? factory : DEFAULT_BACKGROUND).create(guiGuidebook);
+        ResourceLocation background = book.getBackground();
+        IBookBackgroundFactory factory = BACKGROUND_FACTORY_MAP.get(background);
+        if (factory != null)
+        {
+            return factory.create(guiGuidebook, background);
+        }
+        else
+        {
+            return DEFAULT_BACKGROUND.create(guiGuidebook, background);
+        }
     }
 
     private static class TextMetrics

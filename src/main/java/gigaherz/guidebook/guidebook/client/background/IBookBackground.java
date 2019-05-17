@@ -1,4 +1,4 @@
-package gigaherz.guidebook.guidebook.client;
+package gigaherz.guidebook.guidebook.client.background;
 
 public interface IBookBackground
 {
@@ -13,9 +13,9 @@ public interface IBookBackground
     boolean isFullyOpen();
 
     /**
-     * Indicate to the {@link IBookBackground} to move to it's next tick of animation if applicable
+     * Update animation by a tick
      *
-     * @return if true iff the book background is "in motion"
+     * @return true iff book is "open" once we return false, then it's fully closed and can exit from the GUI
      */
     boolean update();
 
@@ -25,9 +25,9 @@ public interface IBookBackground
      *
      * @param partialTicks ticks since last draw
      * @param bookHeight the height of the book background in pixels
-     * @param backgroundScale how much the book background should be scaled
+     * @param scalingFactor how much the book background should be scaled
      */
-    void draw(float partialTicks, int bookHeight, float backgroundScale);
+    void draw(float partialTicks, int bookHeight, float scalingFactor);
 
     /**
      * @return width of the book background in pixels
