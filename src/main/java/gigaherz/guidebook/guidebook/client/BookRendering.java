@@ -74,13 +74,15 @@ public class BookRendering implements IBookGraphics
     {
         this.book = book;
         this.gui = gui;
-        this.bookBackground = createBackground(gui);
-
-        refreshScalingFactor();
+        this.bookBackground = getBookBackground();
     }
     
     IBookBackground getBookBackground() {
-        return bookBackground;
+        this.bookBackground = createBackground(this.gui);
+
+        refreshScalingFactor();
+
+        return this.bookBackground;
     }
 
     @Override
