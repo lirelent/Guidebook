@@ -53,12 +53,9 @@ public class StaticImage2PageBackground implements IBookBackground
 
         GlStateManager.enableDepth();
         GlStateManager.disableBlend();
-        GlStateManager.disableCull();
-        GlStateManager.enableAlpha();
 
         GlStateManager.pushMatrix();
         GlStateManager.enableRescaleNormal();
-        RenderHelper.enableStandardItemLighting();
 
         // ====================================================================
 
@@ -78,11 +75,9 @@ public class StaticImage2PageBackground implements IBookBackground
 
         // ====================================================================
 
-        RenderHelper.disableStandardItemLighting();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
 
-        GlStateManager.enableCull();
         GlStateManager.enableBlend();
         GlStateManager.disableDepth();
     }
