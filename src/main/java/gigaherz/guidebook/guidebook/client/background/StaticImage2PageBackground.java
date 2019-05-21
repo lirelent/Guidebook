@@ -40,6 +40,12 @@ public class StaticImage2PageBackground implements IBookBackground
     }
 
     @Override
+    public Layout getLayout()
+    {
+        return Layout.TWO_PAGES;
+    }
+
+    @Override
     public void draw(float partialTicks, int bookHeight, float scalingFactor)
     {
         if (closing)
@@ -121,31 +127,31 @@ public class StaticImage2PageBackground implements IBookBackground
     @Override
     public int getInnerMargin()
     {
-        return 16;
+        return 8;
     }
 
     @Override
     public int getOuterMargin()
     {
-        return 10;
+        return 5;
     }
 
     @Override
     public int getTopMargin()
     {
-        return 10;
+        return 5;
     }
 
     @Override
     public int getBottomMargin()
     {
-        return 18;
+        return 8;
     }
 
     @Override
     public int getBookScaleMargin()
     {
-        return 20;
+        return 10;
     }
 
     /**
@@ -159,10 +165,10 @@ public class StaticImage2PageBackground implements IBookBackground
         elementImage.textureLocation = backgroundLocation;
         elementImage.tx = 0;
         elementImage.ty = 0;
-        elementImage.tw = 417;
-        elementImage.th = 253;
-        elementImage.w = 512;
-        elementImage.h = 256;
+        elementImage.tw = 209;
+        elementImage.th = 127;
+        elementImage.w = 256;
+        elementImage.h = 128;
         elementImage.scale = 1f;
 
         return new StaticImage2PageBackground(gui, elementImage);

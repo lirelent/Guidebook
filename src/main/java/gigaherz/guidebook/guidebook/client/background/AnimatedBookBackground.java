@@ -34,9 +34,16 @@ public class AnimatedBookBackground implements IBookBackground
 
     private final GuiGuidebook gui;
 
+    @SuppressWarnings("unused")
     public AnimatedBookBackground(GuiGuidebook gui, ResourceLocation backgroundLocation)
     {
         this.gui = gui;
+    }
+
+    @Override
+    public Layout getLayout()
+    {
+        return Layout.TWO_PAGES;
     }
 
     @Override

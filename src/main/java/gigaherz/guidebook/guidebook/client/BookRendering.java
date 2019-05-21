@@ -10,7 +10,10 @@ import gigaherz.guidebook.guidebook.SectionRef;
 import gigaherz.guidebook.guidebook.client.background.AnimatedBookBackground;
 import gigaherz.guidebook.guidebook.client.background.IBookBackground;
 import gigaherz.guidebook.guidebook.client.background.IBookBackgroundFactory;
-import gigaherz.guidebook.guidebook.drawing.*;
+import gigaherz.guidebook.guidebook.drawing.VisualChapter;
+import gigaherz.guidebook.guidebook.drawing.VisualElement;
+import gigaherz.guidebook.guidebook.drawing.VisualPage;
+import gigaherz.guidebook.guidebook.drawing.VisualText;
 import gigaherz.guidebook.guidebook.util.PointD;
 import gigaherz.guidebook.guidebook.util.Size;
 import net.minecraft.client.Minecraft;
@@ -62,9 +65,9 @@ public class BookRendering implements IBookGraphics
 
     private final java.util.Stack<PageRef> history = new java.util.Stack<>();
     private int currentChapter = 0;
-    private int currentPair = 0;
+    private int currentPage = 0;
 
-    private boolean currentDrawingPage = false;
+    private boolean currentPageOnLeftSide = false;
 
     private VisualElement previousHovering = null;
 
@@ -95,7 +98,7 @@ public class BookRendering implements IBookGraphics
         {
             history.clear();
             currentChapter = 0;
-            currentPair = 0;
+            currentPage = 0;
         }
     }
 
@@ -212,7 +215,20 @@ public class BookRendering implements IBookGraphics
             this.bottomMargin = bookBackground.getBottomMargin();
         }
 
-        this.pageWidth = this.bookWidth / 2 - this.innerMargin - this.outerMargin;
+        switch (bookBackground.getLayout())
+        {
+            case ONE_PAGE:
+            {
+                this.pageWidth = this.bookWidth - this.innerMargin - this.outerMargin;
+                break;
+            }
+            case TWO_PAGES:
+            {
+                this.pageWidth = this.bookWidth / 2 - this.innerMargin - this.outerMargin;
+                break;
+            }
+        }
+
         this.pageHeight = this.bookHeight - this.topMargin - this.bottomMargin;
 
         return !epsilonEquals(scalingFactor, oldScale);
@@ -226,23 +242,23 @@ public class BookRendering implements IBookGraphics
 
     private void pushHistory()
     {
-        history.push(new PageRef(currentChapter, currentPair * 2));
+        history.push(new PageRef(currentChapter, currentPage));
     }
 
     @Override
     public boolean canGoNextPage()
     {
-        return (getNextPair() >= 0 || canGoNextChapter());
+        return (getNextPage() >= 0 || canGoNextChapter());
     }
 
     @Override
     public void nextPage()
     {
-        int pg = getNextPair();
+        int pg = getNextPage();
         if (pg >= 0)
         {
             pushHistory();
-            currentPair = pg;
+            currentPage = pg;
         }
         else
         {
@@ -253,17 +269,17 @@ public class BookRendering implements IBookGraphics
     @Override
     public boolean canGoPrevPage()
     {
-        return getPrevPair() >= 0 || canGoPrevChapter();
+        return getPrevPage() >= 0 || canGoPrevChapter();
     }
 
     @Override
     public void prevPage()
     {
-        int pg = getPrevPair();
+        int pg = getPrevPage();
         if (pg >= 0)
         {
             pushHistory();
-            currentPair = pg;
+            currentPage = pg;
         }
         else
         {
@@ -284,7 +300,7 @@ public class BookRendering implements IBookGraphics
         if (ch >= 0)
         {
             pushHistory();
-            currentPair = 0;
+            currentPage = 0;
             currentChapter = ch;
         }
     }
@@ -307,9 +323,25 @@ public class BookRendering implements IBookGraphics
         if (ch >= 0)
         {
             pushHistory();
-            currentPair = 0;
+            currentPage = 0;
             currentChapter = ch;
-            if (lastPage) { currentPair = getVisualChapter(ch).totalPairs - 1; }
+            if (lastPage)
+            {
+                switch (bookBackground.getLayout())
+                {
+                    // remember that currentPage is a zero based index
+                    case ONE_PAGE:
+                    {
+                        currentPage = getVisualChapter(ch).totalPages - 1;
+                        break;
+                    }
+                    case TWO_PAGES:
+                    {
+                        currentPage = getVisualChapter(ch).totalPages - 2;
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -327,12 +359,12 @@ public class BookRendering implements IBookGraphics
             PageRef target = history.pop();
             //target.resolve(book);
             currentChapter = target.chapter;
-            currentPair = target.page / 2;
+            currentPage = target.page / 2;
         }
         else
         {
             currentChapter = 0;
-            currentPair = 0;
+            currentPage = 0;
         }
     }
 
@@ -365,19 +397,49 @@ public class BookRendering implements IBookGraphics
         return -1;
     }
 
-    private int getNextPair()
+    private int getNextPage()
     {
         VisualChapter ch = getVisualChapter(currentChapter);
-        if (currentPair + 1 >= ch.totalPairs)
-            return -1;
-        return currentPair + 1;
+        switch (bookBackground.getLayout())
+        {
+            case ONE_PAGE:
+            {
+                if (currentPage + 1 >= ch.totalPages)
+                    return -1;
+                return currentPage + 1;
+            }
+            case TWO_PAGES:
+            {
+                // move forward two pages at a time
+                if (currentPage + 2 >= ch.totalPages)
+                    return -1;
+                return currentPage + 2;
+            }
+        }
+
+        // should never get here
+        return 0;
     }
 
-    private int getPrevPair()
+    private int getPrevPage()
     {
-        if (currentPair - 1 < 0)
-            return -1;
-        return currentPair - 1;
+        switch (bookBackground.getLayout())
+        {
+            case ONE_PAGE:
+            {
+                if (currentPage - 1 < 0)
+                    return -1;
+                return currentPage - 1;
+            }
+            case TWO_PAGES:
+            {
+                if (currentPage - 2 < 0)
+                    return -1;
+                return currentPage - 2;
+            }
+        }
+        // should never get here
+        return 0;
     }
 
     private boolean needChapter(int chapterNumber)
@@ -427,7 +489,7 @@ public class BookRendering implements IBookGraphics
 
         currentChapter = target.chapter;
 
-        currentPair = findSectionStart(target);
+        currentPage = findSectionStart(target);
     }
 
     private VisualChapter getVisualChapter(int chapter)
@@ -442,13 +504,27 @@ public class BookRendering implements IBookGraphics
             if (chapters.size() > 0)
             {
                 VisualChapter prev = chapters.get(chapters.size() - 1);
-                ch.startPair = prev.startPair + prev.totalPairs;
+                ch.startPage = prev.startPage + prev.totalPages;
             }
 
             Size pageSize = new Size(pageWidth, pageHeight);
             bc.reflow(this, ch, pageSize);
 
-            ch.totalPairs = (ch.pages.size() + 1) / 2;
+            switch (bookBackground.getLayout())
+            {
+                case ONE_PAGE:
+                {
+                    ch.totalPages = ch.pages.size();
+                    break;
+                }
+                case TWO_PAGES:
+                {
+                    // round up to even number of pages, so chapters always start on "left" page
+                    ch.totalPages = ch.pages.size() % 2 > 0 ? ch.pages.size() + 1 : ch.pages.size();
+                    break;
+                }
+            }
+
             chapters.add(ch);
         }
 
@@ -471,7 +547,7 @@ public class BookRendering implements IBookGraphics
         double top0 = top;
         if (hasScale && ConfigValues.flexibleScale)
         {
-            PointD pt = getPageOffset(currentDrawingPage);
+            PointD pt = getPageOffset(currentPageOnLeftSide);
             left0 = Math.floor((pt.x + left) * scalingFactor) / scalingFactor - pt.x;
             top0 = Math.floor((pt.y + top) * scalingFactor) / scalingFactor - pt.y;
         }
@@ -508,16 +584,16 @@ public class BookRendering implements IBookGraphics
         {
             VisualChapter ch = getVisualChapter(currentChapter);
 
-            if (currentPair * 2 < ch.pages.size())
+            if (currentPage * 2 < ch.pages.size())
             {
-                final VisualPage pgLeft = ch.pages.get(currentPair * 2);
+                final VisualPage pgLeft = ch.pages.get(currentPage * 2);
 
                 if (mouseClickPage(mouseX, mouseY, pgLeft, true))
                     return true;
 
-                if (currentPair * 2 + 1 < ch.pages.size())
+                if (currentPage * 2 + 1 < ch.pages.size())
                 {
-                    final VisualPage pgRight = ch.pages.get(currentPair * 2 + 1);
+                    final VisualPage pgRight = ch.pages.get(currentPage * 2 + 1);
 
                     if (mouseClickPage(mouseX, mouseY, pgRight, false))
                         return true;
@@ -550,18 +626,18 @@ public class BookRendering implements IBookGraphics
     {
         VisualChapter ch = getVisualChapter(currentChapter);
 
-        if (currentPair * 2 < ch.pages.size())
+        if (currentPage * 2 < ch.pages.size())
         {
-            final VisualPage pgLeft = ch.pages.get(currentPair * 2);
+            final VisualPage pgLeft = ch.pages.get(currentPage * 2);
 
             final HoverContext hoverContext = new HoverContext(mouseX, mouseY);
             VisualElement hovering = mouseHoverPage(pgLeft, true, hoverContext);
 
             if (hovering == null)
             {
-                if (currentPair * 2 + 1 < ch.pages.size())
+                if (currentPage * 2 + 1 < ch.pages.size())
                 {
-                    final VisualPage pgRight = ch.pages.get(currentPair * 2 + 1);
+                    final VisualPage pgRight = ch.pages.get(currentPage * 2 + 1);
 
                     hovering = mouseHoverPage(pgRight, false, hoverContext);
                 }
@@ -628,8 +704,20 @@ public class BookRendering implements IBookGraphics
             Gui.drawRect(l, t, l + bookWidth, t + bookHeight, 0x2f000000);
         }
 
-        drawPage(currentPair * 2);
-        drawPage(currentPair * 2 + 1);
+        switch (bookBackground.getLayout())
+        {
+            case TWO_PAGES:
+            {
+                drawPage(currentPage);
+                drawPage(currentPage + 1);
+                break;
+            }
+            case ONE_PAGE:
+            {
+                drawPage(currentPage);
+                break;
+            }
+        }
 
         if (hasScale)
         {
@@ -639,11 +727,28 @@ public class BookRendering implements IBookGraphics
 
     private PointD getPageOffset(boolean leftPage)
     {
-        double left = (scaledWidth - bookWidth) / 2 + outerMargin;
-        double right = left + pageWidth + innerMargin * 2;
-        double top = (scaledHeight - bookHeight) / 2 + topMargin;
+        switch (bookBackground.getLayout())
+        {
+            case ONE_PAGE:
+            {
+                double pageStartX = (scaledWidth - bookWidth) / 2 + innerMargin;
+                double top = (scaledHeight - bookHeight) / 2 + topMargin;
 
-        return new PointD(leftPage ? left : right, top);
+                return new PointD(pageStartX, top);
+            }
+            case TWO_PAGES:
+            {
+                double left = (scaledWidth - bookWidth) / 2 + outerMargin;
+                double right = left + pageWidth + innerMargin * 2;
+                double top = (scaledHeight - bookHeight) / 2 + topMargin;
+
+                return new PointD(leftPage ? left : right, top);
+            }
+        }
+
+        // should never get here, the NPE is kinda desirable since it'd mean we added a layout type and didn't
+        // account for it everywhere
+        return null;
     }
 
     private void drawPage(int page)
@@ -652,11 +757,11 @@ public class BookRendering implements IBookGraphics
         if (page >= ch.pages.size())
             return;
 
-        currentDrawingPage = (page & 1) == 0;
+        currentPageOnLeftSide = (page & 1) == 0;
 
         VisualPage pg = ch.pages.get(page);
 
-        PointD offset = getPageOffset(currentDrawingPage);
+        PointD offset = getPageOffset(currentPageOnLeftSide);
         GlStateManager.pushMatrix();
         if (ConfigValues.flexibleScale)
             GlStateManager.translate(offset.x, offset.y, 0);
@@ -673,7 +778,7 @@ public class BookRendering implements IBookGraphics
             e.draw(this);
         }
 
-        String cnt = String.valueOf(ch.startPair * 2 + page + 1);
+        String cnt = String.valueOf(ch.startPage + page + 1);
         Size sz = measure(cnt);
 
         addString((pageWidth - sz.width) / 2, pageHeight + 8, cnt, 0xFF000000, 1.0f);
