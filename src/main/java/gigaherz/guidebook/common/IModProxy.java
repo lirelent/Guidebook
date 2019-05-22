@@ -24,13 +24,13 @@ public interface IModProxy
     }
 
     // The book registry is only available in the client.
-    default Collection<ResourceLocation> getBooksList()
+    default Collection<ResourceLocation> getBooksListForItem()
     {
         return Collections.emptyList();
     }
 
     // The book registry is only available in the client.
-    default void registerBook(ResourceLocation bookLocation)
+    default void registerBook(ResourceLocation bookLocation, boolean excludeItemRegistry)
     {
     }
 }

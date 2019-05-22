@@ -93,15 +93,15 @@ public class ClientProxy implements IModProxy
     }
 
     @Override
-    public void registerBook(ResourceLocation bookLocation)
+    public void registerBook(ResourceLocation bookLocation, boolean excludeItemRegistry)
     {
-        BookRegistry.registerBook(bookLocation);
+        BookRegistry.registerBook(bookLocation, excludeItemRegistry);
     }
 
     @Override
-    public Collection<ResourceLocation> getBooksList()
+    public Collection<ResourceLocation> getBooksListForItem()
     {
-        return BookRegistry.getLoadedBooks().keySet();
+        return BookRegistry.getLoadedBooksForItem().keySet();
     }
 
     @Override
