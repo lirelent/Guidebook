@@ -71,7 +71,7 @@ public class BookRendering implements IBookGraphics
 
     private VisualElement previousHovering = null;
 
-    public static boolean DEBUG_DRAW_BOUNDS = true;
+    public static boolean DEBUG_DRAW_BOUNDS = false;
 
     BookRendering(BookDocument book, GuiGuidebook gui)
     {
