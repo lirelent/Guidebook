@@ -31,6 +31,8 @@ public class BookRegistry
 
     private static boolean booksLoaded = false;
     private static final Map<ResourceLocation, BookDocument> LOADED_BOOKS = Maps.newHashMap();
+    private static final Map<ResourceLocation, BookDocument> LOADED_BOOKS_FOR_ITEM = Maps.newHashMap();
+    private static Set<ResourceLocation> NO_ITEM_BOOKS = Sets.newHashSet();
 
     public static Map<ResourceLocation, BookDocument> getLoadedBooks()
     {
@@ -41,11 +43,22 @@ public class BookRegistry
         return Collections.unmodifiableMap(LOADED_BOOKS);
     }
 
-    public static void registerBook(ResourceLocation loc)
+    public static Map<ResourceLocation, BookDocument> getLoadedBooksForItem()
+    {
+        if (!booksLoaded)
+        {
+            parseAllBooks(Minecraft.getMinecraft().getResourceManager());
+        }
+        return Collections.unmodifiableMap(LOADED_BOOKS_FOR_ITEM);
+    }
+
+    public static void registerBook(ResourceLocation loc, boolean excludeItemRegistry)
     {
         if (Loader.instance().hasReachedState(INITIALIZATION))
             throw new IllegalStateException("Books must be registered before init, preferably in the BookRegistryEvent.");
         REGISTRY.add(loc);
+        if (excludeItemRegistry)
+            NO_ITEM_BOOKS.add(loc);
     }
 
     @Nullable
@@ -70,6 +83,7 @@ public class BookRegistry
         TemplateLibrary.clear();
 
         LOADED_BOOKS.clear();
+        LOADED_BOOKS_FOR_ITEM.clear();
 
         Set<ResourceLocation> toLoad = Sets.newHashSet(REGISTRY);
 
@@ -83,12 +97,10 @@ public class BookRegistry
                 {
                     loadBooksData(toLoad, res);
                 }
-            }
-            catch (FileNotFoundException e)
+            } catch (FileNotFoundException e)
             {
                 // IGNORE, it just means nothing was found
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 GuidebookMod.logger.error("Error loading books from resourcepacks", e);
             }
@@ -99,21 +111,27 @@ public class BookRegistry
         LanguageManager lm = Minecraft.getMinecraft().getLanguageManager();
 
         String lang = ObfuscationReflectionHelper.getPrivateValue(LanguageManager.class, lm, "field_135048_c");
-        if (lang == null) lang = "en_us";
+        if (lang == null)
+            lang = "en_us";
         for (ResourceLocation loc : toLoad)
         {
             if (!LOADED_BOOKS.containsKey(loc))
             {
                 BookDocument book = parseBook(manager, loc, lang);
                 if (book != null)
+                {
                     LOADED_BOOKS.put(loc, book);
+                    if (!NO_ITEM_BOOKS.contains(loc)) {
+                        LOADED_BOOKS_FOR_ITEM.put(loc, book);
+                    }
+                }
             }
         }
+        NO_ITEM_BOOKS.clear();
     }
 
     private static Type listType = new TypeToken<List<String>>()
-    {
-    }.getType();
+    {}.getType();
 
     private static void loadBooksData(Set<ResourceLocation> toLoad, IResource resource) throws IOException
     {
@@ -149,8 +167,7 @@ public class BookRegistry
             try
             {
                 bookResource = manager.getResource(localizedLoc);
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 bookResource = null;
             }
@@ -164,8 +181,7 @@ public class BookRegistry
                 if (!bookDocument.parseBook(stream, false))
                     return null;
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             bookDocument.initializeWithLoadError(e.toString());
         }
@@ -181,8 +197,7 @@ public class BookRegistry
             InputStream stream = new FileInputStream(file);
             if (!bookDocument.parseBook(stream, true))
                 return null;
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             bookDocument.initializeWithLoadError(e.toString());
         }
@@ -247,7 +262,8 @@ public class BookRegistry
     @SuppressWarnings("unchecked")
     public static void injectCustomResourcePack()
     {
-        if (initialized) return;
+        if (initialized)
+            return;
         initialized = true;
 
         File resourcesFolder = new File(new File(Loader.instance().getConfigDir(), "books"), "resources");
@@ -267,7 +283,7 @@ public class BookRegistry
 
         try
         {
-            List<IResourcePack> rp = (List<IResourcePack>) _defaultResourcePacks.get(Minecraft.getMinecraft());
+            List<IResourcePack> rp = (List<IResourcePack>)_defaultResourcePacks.get(Minecraft.getMinecraft());
 
             rp.add(new FolderResourcePack(resourcesFolder)
             {
@@ -301,8 +317,7 @@ public class BookRegistry
                     return Collections.singleton(GuidebookMod.MODID);
                 }
             });
-        }
-        catch (IllegalAccessException e)
+        } catch (IllegalAccessException e)
         {
             // Ignore
         }

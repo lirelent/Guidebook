@@ -12,7 +12,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -65,7 +64,7 @@ public class ItemGuidebook extends Item
     {
         if (this.isInCreativeTab(tab))
         {
-            for (ResourceLocation resourceLocation : GuidebookMod.proxy.getBooksList())
+            for (ResourceLocation resourceLocation : GuidebookMod.proxy.getBooksListForItem())
             {
                 subItems.add(of(resourceLocation));
             }
