@@ -36,11 +36,6 @@ import static gigaherz.common.client.ModelHelpers.registerItemModel;
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = GuidebookMod.MODID)
 public class ClientProxy implements IModProxy
 {
-    public ClientProxy()
-    {
-        BookRegistry.injectCustomResourcePack();
-    }
-
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event)
     {
@@ -79,6 +74,8 @@ public class ClientProxy implements IModProxy
     @Override
     public void preInit()
     {
+        BookRegistry.injectCustomResourcePack();
+
         ModelHandle.init();
 
         BasicConditions.register();
