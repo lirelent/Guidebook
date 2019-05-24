@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
     }
 }
 
@@ -23,6 +24,8 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
 
 version = "2.9.1"
 group = "gigaherz.guidebook" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -37,34 +40,15 @@ minecraft {
     replaceIn "GuidebookMod.java"
 }
 
-configurations {
-    // configuration that holds jars to embed inside the jar
-    embed
-    embed.transitive = false
-}
-
 dependencies {
     deobfCompile "gigaherz.commons:gigaherz.commons-1.12.1:0.6.4"
-    embed "gigaherz.commons:gigaherz.commons-1.12.1:0.6.4"
 
     deobfCompile "net.darkhax.gamestages:GameStages-1.12.2:2.0.91"
     deobfCompile "net.darkhax.bookshelf:Bookshelf-1.12.2:2.3.552"
-
-    //compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-jar {
-    into('/META-INF/libraries') {
-        from configurations.embed
-    }
-
-    manifest {
-        attributes([
-            "ContainedDeps": configurations.embed.collect { it.getName() }.join(' '),
-            "Maven-Artifact":"${project.group}:${project.archivesBaseName}:${project.version}",
-            'Timestamp': System.currentTimeMillis()
-        ])
-    }
+shadowJar {
+    relocate 'gigaherz.guidebook', 'gigaherz.lirelent.guidebook'
 }
 
 compileJava {
