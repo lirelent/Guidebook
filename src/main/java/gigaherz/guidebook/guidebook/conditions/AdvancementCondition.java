@@ -1,7 +1,7 @@
-package gigaherz.lirelent.guidebook.guidebook.conditions;
+package gigaherz.guidebook.guidebook.conditions;
 
 import com.google.common.base.Strings;
-import gigaherz.lirelent.guidebook.guidebook.BookParsingException;
+import gigaherz.guidebook.guidebook.BookParsingException;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
