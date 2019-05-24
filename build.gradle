@@ -48,7 +48,6 @@ dependencies {
 }
 
 shadowJar {
-    exclude "net/**/*", "gigaherz/common/**/*"
     relocate 'gigaherz.guidebook', 'gigaherz.lirelent.guidebook'
 }
 
