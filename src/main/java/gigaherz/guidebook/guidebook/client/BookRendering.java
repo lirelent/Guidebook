@@ -9,6 +9,7 @@ import gigaherz.guidebook.guidebook.IBookGraphics;
 import gigaherz.guidebook.guidebook.SectionRef;
 import gigaherz.guidebook.guidebook.client.background.AnimatedBookBackground;
 import gigaherz.guidebook.guidebook.client.background.IBookBackground;
+import gigaherz.guidebook.guidebook.client.background.IBookBackground.Layout;
 import gigaherz.guidebook.guidebook.client.background.IBookBackgroundFactory;
 import gigaherz.guidebook.guidebook.drawing.VisualChapter;
 import gigaherz.guidebook.guidebook.drawing.VisualElement;
@@ -466,7 +467,7 @@ public class BookRendering implements IBookGraphics
         {
             VisualPage page = vc.pages.get(i);
             if (page.ref.section == ref.section)
-                return i / 2;
+                return i;
 
             if (page.ref.section > ref.section)
                 return 0; // give up
@@ -584,16 +585,17 @@ public class BookRendering implements IBookGraphics
         {
             VisualChapter ch = getVisualChapter(currentChapter);
 
-            if (currentPage * 2 < ch.pages.size())
+            if (currentPage < ch.pages.size())
             {
-                final VisualPage pgLeft = ch.pages.get(currentPage * 2);
+                final VisualPage pgLeft = ch.pages.get(currentPage);
 
                 if (mouseClickPage(mouseX, mouseY, pgLeft, true))
                     return true;
 
-                if (currentPage * 2 + 1 < ch.pages.size())
+                if (bookBackground.getLayout() == Layout.TWO_PAGES &&
+                            currentPage + 1 < ch.pages.size())
                 {
-                    final VisualPage pgRight = ch.pages.get(currentPage * 2 + 1);
+                    final VisualPage pgRight = ch.pages.get(currentPage + 1);
 
                     if (mouseClickPage(mouseX, mouseY, pgRight, false))
                         return true;
