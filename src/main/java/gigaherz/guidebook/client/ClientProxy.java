@@ -1,23 +1,24 @@
-package gigaherz.lirelent.guidebook.client;
+package gigaherz.guidebook.client;
 
 import gigaherz.common.client.ModelHandle;
-import gigaherz.lirelent.guidebook.GuidebookMod;
-import gigaherz.lirelent.guidebook.common.IModProxy;
-import gigaherz.lirelent.guidebook.guidebook.BookDocument;
-import gigaherz.lirelent.guidebook.guidebook.client.BookBakedModel;
-import gigaherz.lirelent.guidebook.guidebook.client.BookRegistry;
-import gigaherz.lirelent.guidebook.guidebook.client.GuiGuidebook;
-import gigaherz.lirelent.guidebook.guidebook.conditions.AdvancementCondition;
-import gigaherz.lirelent.guidebook.guidebook.conditions.BasicConditions;
-import gigaherz.lirelent.guidebook.guidebook.conditions.CompositeCondition;
-import gigaherz.lirelent.guidebook.guidebook.conditions.GameStageCondition;
+import gigaherz.guidebook.GuidebookMod;
+import gigaherz.guidebook.common.IModProxy;
+import gigaherz.guidebook.guidebook.BookDocument;
+import gigaherz.guidebook.guidebook.client.BookBakedModel;
+import gigaherz.guidebook.guidebook.client.BookRegistry;
+import gigaherz.guidebook.guidebook.client.BookRendering;
+import gigaherz.guidebook.guidebook.client.GuiGuidebook;
+import gigaherz.guidebook.guidebook.client.background.StaticImage1PageBackground;
+import gigaherz.guidebook.guidebook.client.background.StaticImage2PageBackground;
+import gigaherz.guidebook.guidebook.conditions.AdvancementCondition;
+import gigaherz.guidebook.guidebook.conditions.BasicConditions;
+import gigaherz.guidebook.guidebook.conditions.CompositeCondition;
+import gigaherz.guidebook.guidebook.conditions.GameStageCondition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -30,8 +31,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Collection;
-
-import static gigaherz.common.client.ModelHelpers.registerItemModel;
 
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = GuidebookMod.MODID)
 public class ClientProxy implements IModProxy

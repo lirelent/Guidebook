@@ -1,10 +1,7 @@
 package gigaherz.guidebook;
 
-import gigaherz.lirelent.guidebook.common.IModProxy;
-import gigaherz.lirelent.guidebook.guidebook.ItemGuidebook;
-import gigaherz.lirelent.guidebook.guidebook.client.BookRendering;
-import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage1PageBackground;
-import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage2PageBackground;
+import gigaherz.guidebook.common.IModProxy;
+import gigaherz.guidebook.guidebook.ItemGuidebook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
