@@ -78,10 +78,10 @@ public class ClientProxy implements IModProxy
     public void preInit()
     {
         BookRegistry.injectCustomResourcePack();
-        
+
         BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/two_side_2d_background.png"), StaticImage2PageBackground.twoSide2dBackgroundFactory);
-        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/single_side_2d_background.png"), StaticImage1PageBackground.oneSide2dBackgroundFactory);        
-        
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/single_side_2d_background.png"), StaticImage1PageBackground.oneSide2dBackgroundFactory);
+
         ModelHandle.init();
 
         BasicConditions.register();
