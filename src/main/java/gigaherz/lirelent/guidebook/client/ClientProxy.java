@@ -11,6 +11,9 @@ import gigaherz.lirelent.guidebook.guidebook.conditions.AdvancementCondition;
 import gigaherz.lirelent.guidebook.guidebook.conditions.BasicConditions;
 import gigaherz.lirelent.guidebook.guidebook.conditions.CompositeCondition;
 import gigaherz.lirelent.guidebook.guidebook.conditions.GameStageCondition;
+import gigaherz.lirelent.guidebook.guidebook.client.BookRendering;
+import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage1PageBackground;
+import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage2PageBackground;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -75,7 +78,9 @@ public class ClientProxy implements IModProxy
     public void preInit()
     {
         BookRegistry.injectCustomResourcePack();
-
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/two_side_2d_background.png"), StaticImage2PageBackground.twoSide2dBackgroundFactory);
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/single_side_2d_background.png"), StaticImage1PageBackground.oneSide2dBackgroundFactory);        
+        
         ModelHandle.init();
 
         BasicConditions.register();
