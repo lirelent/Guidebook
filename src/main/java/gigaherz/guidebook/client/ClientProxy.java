@@ -1,16 +1,16 @@
-package gigaherz.guidebook.client;
+package gigaherz.lirelent.guidebook.client;
 
 import gigaherz.common.client.ModelHandle;
-import gigaherz.guidebook.GuidebookMod;
-import gigaherz.guidebook.common.IModProxy;
-import gigaherz.guidebook.guidebook.BookDocument;
-import gigaherz.guidebook.guidebook.client.BookBakedModel;
-import gigaherz.guidebook.guidebook.client.BookRegistry;
-import gigaherz.guidebook.guidebook.client.GuiGuidebook;
-import gigaherz.guidebook.guidebook.conditions.AdvancementCondition;
-import gigaherz.guidebook.guidebook.conditions.BasicConditions;
-import gigaherz.guidebook.guidebook.conditions.CompositeCondition;
-import gigaherz.guidebook.guidebook.conditions.GameStageCondition;
+import gigaherz.lirelent.guidebook.GuidebookMod;
+import gigaherz.lirelent.guidebook.common.IModProxy;
+import gigaherz.lirelent.guidebook.guidebook.BookDocument;
+import gigaherz.lirelent.guidebook.guidebook.client.BookBakedModel;
+import gigaherz.lirelent.guidebook.guidebook.client.BookRegistry;
+import gigaherz.lirelent.guidebook.guidebook.client.GuiGuidebook;
+import gigaherz.lirelent.guidebook.guidebook.conditions.AdvancementCondition;
+import gigaherz.lirelent.guidebook.guidebook.conditions.BasicConditions;
+import gigaherz.lirelent.guidebook.guidebook.conditions.CompositeCondition;
+import gigaherz.lirelent.guidebook.guidebook.conditions.GameStageCondition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -75,6 +75,8 @@ public class ClientProxy implements IModProxy
     public void preInit()
     {
         BookRegistry.injectCustomResourcePack();
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/two_side_2d_background.png"), StaticImage2PageBackground.twoSide2dBackgroundFactory);
+        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/single_side_2d_background.png"), StaticImage1PageBackground.oneSide2dBackgroundFactory);
 
         ModelHandle.init();
 

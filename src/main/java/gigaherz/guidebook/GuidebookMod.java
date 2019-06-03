@@ -1,10 +1,10 @@
 package gigaherz.guidebook;
 
-import gigaherz.guidebook.common.IModProxy;
-import gigaherz.guidebook.guidebook.ItemGuidebook;
-import gigaherz.guidebook.guidebook.client.BookRendering;
-import gigaherz.guidebook.guidebook.client.background.StaticImage1PageBackground;
-import gigaherz.guidebook.guidebook.client.background.StaticImage2PageBackground;
+import gigaherz.lirelent.guidebook.common.IModProxy;
+import gigaherz.lirelent.guidebook.guidebook.ItemGuidebook;
+import gigaherz.lirelent.guidebook.guidebook.client.BookRendering;
+import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage1PageBackground;
+import gigaherz.lirelent.guidebook.guidebook.client.background.StaticImage2PageBackground;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,9 +60,6 @@ public class GuidebookMod
         logger = event.getModLog();
 
         proxy.preInit();
-
-        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/two_side_2d_background.png"), StaticImage2PageBackground.twoSide2dBackgroundFactory);
-        BookRendering.BACKGROUND_FACTORY_MAP.put(new ResourceLocation("gbook:textures/gui/single_side_2d_background.png"), StaticImage1PageBackground.oneSide2dBackgroundFactory);
     }
 
     @SubscribeEvent
