@@ -24,7 +24,8 @@ repositories {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
 
-version = "2.9.1"
+// add snapshot number for embedding in Arc Arc
+version = "2.9.1.s0"
 group = "gigaherz.guidebook" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Guidebook-1.12.2"
 
@@ -45,7 +46,8 @@ configurations {
 
 dependencies {
     deobfCompile "gigaherz.commons:gigaherz.commons-1.12.1:0.6.4"
-    embed "gigaherz.commons:gigaherz.commons-1.12.1:0.6.4"
+    // disable embed so we don't have layers of embed which doesn't work right anyways
+    //embed "gigaherz.commons:gigaherz.commons-1.12.1:0.6.4"
 
     deobfCompile "net.darkhax.gamestages:GameStages-1.12.2:2.0.91"
     deobfCompile "net.darkhax.bookshelf:Bookshelf-1.12.2:2.3.552"
