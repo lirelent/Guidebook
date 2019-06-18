@@ -46,7 +46,7 @@ public class GbookCommand
     @Override
     public String getName()
     {
-        return "gbook";
+        return "gbook_snapshot";
     }
 
     @Override
@@ -83,6 +83,6 @@ public class GbookCommand
     private void executeReload(MinecraftServer server, ICommandSender sender, String[] args)
     {
         FMLClientHandler.instance().refreshResources(BookResourceType.INSTANCE);
-        sender.sendMessage(new TextComponentTranslation("cmd.gbook.guide.done"));
+        sender.sendMessage(new TextComponentTranslation("cmd.gbook_snapshot.guide.done"));
     }
 }

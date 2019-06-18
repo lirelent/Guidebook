@@ -1,6 +1,6 @@
 [
 {
-  "modid": "gbook",
+  "modid": "gbook_snapshot",
   "name": "Guidebook",
   "description": "Books that guide",
   "version": "${version}",

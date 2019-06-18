@@ -88,7 +88,7 @@ public class TemplateLibrary implements IConditionSource
                 ResourceLocation loc = new ResourceLocation(path);
 
                 // Prevents loading libraries from config folder if the book was found in resource packs.
-                if (useConfigFolder && loc.getNamespace().equals("gbook"))
+                if (useConfigFolder && loc.getNamespace().equals("gbook_snapshot"))
                 {
                     File booksFolder = BookRegistry.getBooksFolder();
                     File file = new File(booksFolder, loc.getPath());

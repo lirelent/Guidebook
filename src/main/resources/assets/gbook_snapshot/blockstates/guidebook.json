@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "variants": {
     "inventory": [{
-      "model": "gbook:custom/book",
+      "model": "gbook_snapshot:custom/book",
       "transform": {
         "gui": {
           "rotation": [{"x": 30}, {"y": 245}],

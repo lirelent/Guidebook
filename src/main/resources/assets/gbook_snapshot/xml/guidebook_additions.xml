@@ -1,8 +1,8 @@
-﻿<book title="Guidebook Additions Manual" cover="gbook:covers/default" background="gbook:textures/gui/single_side_2d_background.png" fontSize="0.4"
+﻿<book title="Guidebook Additions Manual" cover="gbook_snapshot:covers/default" background="gbook_snapshot:textures/gui/single_side_2d_background.png" fontSize="0.4"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="../../../../../../assets/schema/book.xsd">
 
-  <include ref="gbook:xml/standard.xml" />
+  <include ref="gbook_snapshot:xml/standard.xml" />
 
   <chapter>
     <section>

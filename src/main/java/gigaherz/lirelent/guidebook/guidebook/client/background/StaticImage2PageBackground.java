@@ -150,7 +150,7 @@ public class StaticImage2PageBackground implements IBookBackground
     }
 
     /**
-     * {@link IBookBackgroundFactory} for demo "gbook:gui/two_side_2d_background" background registered to
+     * {@link IBookBackgroundFactory} for demo "gbook_snapshot:gui/two_side_2d_background" background registered to
      * {@link gigaherz.guidebook.guidebook.client.BookRendering#BACKGROUND_FACTORY_MAP} during
      * {@link gigaherz.guidebook.GuidebookMod#preInit(FMLPreInitializationEvent)}
      */

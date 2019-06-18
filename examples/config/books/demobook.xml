@@ -1,8 +1,8 @@
-<book title="Demo / Feature test book" cover="gbook:demo" fontSize="0.6" home="0:0"
-      xmlns="http://localhost/gbook/base"
-      xmlns:minecraft="http://localhost/gbook/minecraft-addons">
+<book title="Demo / Feature test book" cover="gbook_snapshot:demo" fontSize="0.6" home="0:0"
+      xmlns="http://localhost/gbook_snapshot/base"
+      xmlns:minecraft="http://localhost/gbook_snapshot/minecraft-addons">
 
-    <include ref="gbook:xml/standard.xml"/>
+    <include ref="gbook_snapshot:xml/standard.xml"/>
 
     <conditions>
         <all name="water_and_earth">
