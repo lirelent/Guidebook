@@ -628,18 +628,18 @@ public class BookRendering implements IBookGraphics
     {
         VisualChapter ch = getVisualChapter(currentChapter);
 
-        if (currentPage * 2 < ch.pages.size())
+        if (currentPage < ch.pages.size())
         {
-            final VisualPage pgLeft = ch.pages.get(currentPage * 2);
+            final VisualPage pgLeft = ch.pages.get(currentPage);
 
             final HoverContext hoverContext = new HoverContext(mouseX, mouseY);
             VisualElement hovering = mouseHoverPage(pgLeft, true, hoverContext);
 
             if (hovering == null)
             {
-                if (currentPage * 2 + 1 < ch.pages.size())
+                if (currentPage + 1 < ch.pages.size())
                 {
-                    final VisualPage pgRight = ch.pages.get(currentPage * 2 + 1);
+                    final VisualPage pgRight = ch.pages.get(currentPage + 1);
 
                     hovering = mouseHoverPage(pgRight, false, hoverContext);
                 }
