@@ -9,22 +9,33 @@ import net.minecraft.util.ResourceLocation;
 
 public class VisualImage extends VisualElement implements LinkHelper.ILinkable
 {
-    public ResourceLocation textureLocation;
-    public int tx;
-    public int ty;
-    public int tw;
-    public int th;
-    public int w;
-    public int h;
-    public float scale;
+    final public ResourceLocation textureLocation;
+    /**
+     * The {@link ResourceLocation} to use for the image when the mouse is hovered
+     * over the image instead of using {@link #hoverTextureLocation}
+     */
+    final public ResourceLocation hoverTextureLocation;
+    final public int tx;
+    final public int ty;
+    final public int tw;
+    final public int th;
+    final public int w;
+    final public int h;
+    final public float scale;
 
     public LinkContext linkContext = null;
 
+    /**
+     * true iff mouse is hovering over this {@link VisualImage}
+     */
+    private boolean isHovering;
+
     public VisualImage(Size size, int positionMode, float baseline, int verticalAlign, ResourceLocation textureLocation,
-                       int tx, int ty, int tw, int th, int w, int h, float scale)
+                       ResourceLocation hoverTextureLocation, int tx, int ty, int tw, int th, int w, int h, float scale)
     {
         super(size, positionMode, baseline, verticalAlign);
         this.textureLocation = textureLocation;
+        this.hoverTextureLocation = hoverTextureLocation;
         this.tx = tx;
         this.ty = ty;
         this.tw = tw;
@@ -32,13 +43,19 @@ public class VisualImage extends VisualElement implements LinkHelper.ILinkable
         this.w = w;
         this.h = h;
         this.scale = scale;
+
+        this.isHovering = false;
     }
 
     @Override
     public void draw(IBookGraphics nav)
     {
         super.draw(nav);
-        nav.drawImage(textureLocation, position.x, position.y, tx, ty, w, h, tw, th, scale);
+        if (hoverTextureLocation != null && isHovering) {
+            nav.drawImage(hoverTextureLocation, position.x, position.y, tx, ty, w, h, tw, th, scale);
+        } else {
+            nav.drawImage(textureLocation, position.x, position.y, tx, ty, w, h, tw, th, scale);
+        }
     }
 
     //public int colorHover = 0xFF77cc66;
@@ -46,7 +63,7 @@ public class VisualImage extends VisualElement implements LinkHelper.ILinkable
     @Override
     public boolean wantsHover()
     {
-        return linkContext != null;
+        return (linkContext != null || hoverTextureLocation != null);
     }
 
     @Override
@@ -56,6 +73,7 @@ public class VisualImage extends VisualElement implements LinkHelper.ILinkable
             linkContext.isHovering = true;
             //Mouse.setNativeCursor(Cursor.)
         }
+        isHovering = true;
     }
 
     @Override
@@ -64,6 +82,7 @@ public class VisualImage extends VisualElement implements LinkHelper.ILinkable
         if (linkContext != null ) {
             linkContext.isHovering = false;
         }
+        isHovering = false;
     }
 
     @Override

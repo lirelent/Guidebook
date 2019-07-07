@@ -107,6 +107,7 @@
                 <xs:attribute type="xs:integer" name="tw"/>
                 <xs:attribute type="xs:integer" name="th"/>
                 <xs:attribute type="xs:string" name="src"/>
+                <xs:attribute type="xs:string" name="hoverSrc"/>
                 <xs:attribute type="xs:float" name="scale"/>
             </xs:extension>
         </xs:simpleContent>
@@ -128,6 +129,7 @@
     <xs:complexType name="p_type" mixed="true">
         <xs:sequence>
             <xs:element name="link" minOccurs="0" type="link_t"/>
+            <xs:element name="image" minOccurs="0" type="image_t"/>
         </xs:sequence>
         <xs:attribute type="xs:byte" name="space"/>
         <xs:attribute type="xs:string" name="align"/>

@@ -16,6 +16,11 @@ import java.util.Set;
 public class ElementImage extends ElementInline
 {
     public ResourceLocation textureLocation;
+    /**
+     * The {@link ResourceLocation} to use for the image when the mouse is hovered
+     * over the image instead of using {@link #hoverTextureLocation}
+     */
+    public ResourceLocation hoverTextureLocation;
     public int tx = 0;
     public int ty = 0;
     public int tw = 0;
@@ -37,7 +42,7 @@ public class ElementImage extends ElementInline
 
     private VisualImage getVisual()
     {
-        return new VisualImage(getVisualSize(), position, baseline, verticalAlignment, textureLocation, tx, ty, tw, th, (w > 0 ? w : tw), (h > 0 ? h : th), scale);
+        return new VisualImage(getVisualSize(), position, baseline, verticalAlignment, textureLocation, hoverTextureLocation, tx, ty, tw, th, (w > 0 ? w : tw), (h > 0 ? h : th), scale);
     }
 
     @Override
@@ -74,6 +79,7 @@ public class ElementImage extends ElementInline
         tw = getAttribute(attributes, "tw", tw);
         th = getAttribute(attributes, "th", th);
         textureLocation = getAttribute(attributes, "src", textureLocation);
+        hoverTextureLocation = getAttribute(attributes, "hoverSrc", textureLocation);
         scale = getAttribute(attributes, "scale", scale);
     }
 
