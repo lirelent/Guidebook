@@ -84,13 +84,14 @@ public class ElementRecipe extends Element
 
         Point adjustedPosition = applyPosition(bounds.position, bounds.position);
         Rect adjustedBounds = new Rect(adjustedPosition, bounds.size);
+        
+        background.reflow(list, nav, adjustedBounds, pageBounds);
 
         for (int i = 0; i < ingredients.length; ++i)
         {
             ingredients[i].reflow(list, nav, adjustedBounds, pageBounds);
         }
 
-        background.reflow(list, nav, adjustedBounds, pageBounds);
         if (additionalRenderer != null)
             list.add(additionalRenderer);
         if (position != POS_RELATIVE)
