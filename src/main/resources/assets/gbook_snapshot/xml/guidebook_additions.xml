@@ -185,6 +185,11 @@
       <p space="8">By using the stack-links feature, you can make certain stacks turn into links to a section. As an example, the stack below will lead to the recipes section in this book.</p>
       <p indent="8" space="8">&lt;stack item=&quot;minecraft:coal&quot; meta=&quot;0&quot; count=&quot;2&quot; /&gt;</p>
       <stack item="minecraft:coal" meta="0" count="2" />
+      <divider/>
+      <p>It is also possible to define the 'hoverSrc' attribute to define an alternative image of the same size to use
+        when the mouse is hovered over the image</p>
+      <p indent="8">&lt;image src="minecraft:blocks/log_oak_top" hoverSrc="minecraft:items/coal" tw="16" th="16" /&gt;</p>
+      <p indent="12"><image src="minecraft:blocks/log_oak_top" hoverSrc="minecraft:items/coal" tw="16" th="16" /></p>
     </section>
   </chapter>
   <chapter id="recipes">
